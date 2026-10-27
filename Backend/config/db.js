@@ -1,9 +1,9 @@
+const colors = require("colors");
+const { Pool } = require("pg");
 require("dotenv").config();
 
-const { Pool } = require("pg");
-
 const dbConfig = {
-  host: process.env.HOST,
+  host: process.env.DB_HOST,
   port: process.env.DB_PORT,
   database: process.env.DATABASE,
   user: process.env.USER,
@@ -12,13 +12,23 @@ const dbConfig = {
 
 const db = new Pool(dbConfig);
 
+// console.log(dbConfig);
+
 db.connect((err, client, release) => {
   if (err) {
     return console.log("Error acquiring client", err.stack);
   }
 
-  console.log(`coneccion a la base de dato exitosa`);
+  const url = `${db.options.host}:${db.options.port}`;
+  console.log(`PostgreSQL conectado en: ${url}`.cyan.bold);
   release();
 });
 
-module.exports.db = db;
+// db.connect()
+//   .then((client) => {
+// console.log(`coneccion a la base de dato exitosa`);
+//     client.release();
+//   })
+//   .catch((err) => console.log(err.stack));
+
+module.exports = db;

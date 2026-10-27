@@ -14,7 +14,11 @@
   "dependencies": {
     "dotenv": "^18.0.9",
     "express": "^5.3.0",
-    "nodemon": "^3.1.14",
     "pg": "^8.23.1"
+  },
+  "devDependencies": {
+    "colors": "^1.4.0",
+    "morgan": "^1.12.1",
+    "nodemon": "^3.1.14"
   }
 }

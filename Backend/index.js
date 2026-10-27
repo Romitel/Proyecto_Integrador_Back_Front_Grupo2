@@ -1,17 +1,8 @@
-const express = require("express");
-const dotenv = require("dotenv");
+const server = require("./server");
 
-dotenv.config();
+const PORT = process.env.PORT;
+const HOST = process.env.HOST;
 
-const HOSTNAME = "127.0.0.1";
-const PORT = 3000;
-
-const app = express();
-
-app.get(`/`, (req, res) => {
-  res.status(200).send(`Hola Express`);
-});
-
-app.listen(PORT, HOSTNAME, () => {
-  console.log(`el servidor esta corriendo en http://${HOSTNAME}:${PORT}`);
+server.listen(PORT, HOST, () => {
+  console.log(`server listening in the port http://${HOST}:${PORT}`);
 });

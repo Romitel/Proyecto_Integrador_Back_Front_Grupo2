@@ -1,22 +1,21 @@
 const dotenv = require("dotenv");
-const { db } = require("../config/db");
+const db = require("../config/db");
 
 dotenv.config();
 
-const createEvent = async (name, description) => {
-  try {
-    const result = await db.query(
-      "INSERT INTO eventos (nombre, description) VALUES ($1, $2)",
-      [name, description],
-    );
-    console.log("El evento se ha creado con exito");
-    return console.log(result.rowCount);
-  } catch (err) {
-    console.error(err);
-  }
+const CrearEvento = async (data) => {
+  const { nombre, descripcion } = data;
+
+  await db.query("INSERT INTO eventos (nombre, description) VALUES ($1, $2)", [
+    nombre,
+    descripcion,
+  ]);
 };
 
-createEvent("Del Siglo", "Descripcion del evento del siglo");
+const ListarEventos = async () => {
+  const { rows } = await db.query("SELECT * FROM eventos");
+  return rows;
+};
 
 const deleteEvent = async (id) => {
   try {
@@ -27,4 +26,4 @@ const deleteEvent = async (id) => {
   }
 };
 
-module.exports = { createEvent, deleteEvent };
+module.exports = { CrearEvento, ListarEventos, deleteEvent };
