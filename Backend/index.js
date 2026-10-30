@@ -1,10 +1,10 @@
 require(`dotenv`).config();
 
-const express = require("express");
+const express = require('express');
 
 const app = express();
 
-const HOSTNAME = "127.0.0.1";
+const HOSTNAME = '127.0.0.1';
 
 const PORT = 3000;
 
