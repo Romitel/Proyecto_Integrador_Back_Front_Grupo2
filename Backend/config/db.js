@@ -1,4 +1,4 @@
-const colors = require("colors");
+require("colors");
 const { Pool } = require("pg");
 require("dotenv").config();
 

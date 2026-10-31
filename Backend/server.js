@@ -1,7 +1,7 @@
 const express = require("express");
 const morgan = require("morgan");
 require("dotenv").config();
-const eventosRouter = require("./routes/eventosRoutes");
+const eventosRouter = require("./src/routes/eventosRoutes");
 
 const app = express();
 app.use(express.json());

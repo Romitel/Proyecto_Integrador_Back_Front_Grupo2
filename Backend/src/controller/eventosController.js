@@ -1,6 +1,6 @@
 const eventosServ = require("../service/eventosServices");
 
-const CrearEvento = async (req, res) => {
+exports.CrearEvento = async (req, res) => {
   const { nombre, descripcion } = req.body;
   try {
     await eventosServ.CrearEvento(nombre, descripcion);
@@ -10,7 +10,7 @@ const CrearEvento = async (req, res) => {
   }
 };
 
-const ListarEventos = async (req, res) => {
+exports.ListarEventos = async (req, res) => {
   try {
     const result = await eventosServ.ListarEventos();
 
@@ -22,4 +22,4 @@ const ListarEventos = async (req, res) => {
   }
 };
 
-module.exports = { CrearEvento, ListarEventos };
+// module.exports = { CrearEvento, ListarEventos };
