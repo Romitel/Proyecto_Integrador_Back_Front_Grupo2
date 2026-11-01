@@ -1,22 +1,20 @@
-const colors = require("colors");
-const { Pool } = require("pg");
-require("dotenv").config();
+const colors = require('colors');
+const { Pool } = require('pg');
+require('dotenv').config();
 
 const dbConfig = {
   host: process.env.DB_HOST,
   port: process.env.DB_PORT,
-  database: process.env.DATABASE,
-  user: process.env.USER,
+  database: process.env.DB_NAME,
+  user: process.env.DB_USER,
   password: process.env.DB_PASSWORD,
 };
 
 const db = new Pool(dbConfig);
 
-// console.log(dbConfig);
-
 db.connect((err, client, release) => {
   if (err) {
-    return console.log("Error acquiring client", err.stack);
+    return console.log('Error acquiring client', err.stack);
   }
 
   const url = `${db.options.host}:${db.options.port}`;
