@@ -1,4 +1,4 @@
-require("colors");
+const colors = require("colors");
 const { Pool } = require("pg");
 require("dotenv").config();
 
@@ -20,7 +20,7 @@ db.connect((err, client, release) => {
   }
 
   const url = `${db.options.host}:${db.options.port}`;
-  console.log(`PostgreSQL conectado en: ${url}`.cyan.bold);
+  console.log(colors.cyan.bold(`PostgreSQL conectado en: ${url}`));
   release();
 });
 

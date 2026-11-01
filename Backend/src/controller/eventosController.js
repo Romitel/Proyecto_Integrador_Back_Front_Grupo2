@@ -1,18 +1,8 @@
 const eventosServ = require("../service/eventosServices");
 
-exports.CrearEvento = async (req, res) => {
-  const { nombre, descripcion } = req.body;
+exports.ListarEventosController = async (req, res) => {
   try {
-    await eventosServ.CrearEvento(nombre, descripcion);
-    res.send(`Evento creado con exito`);
-  } catch (error) {
-    res.status(500).json({ error: "Algo salio mal...", error });
-  }
-};
-
-exports.ListarEventos = async (req, res) => {
-  try {
-    const result = await eventosServ.ListarEventos();
+    const result = await eventosServ.ListarEventosService();
 
     if (!result) res.status(404).send(error.message);
 
@@ -21,5 +11,3 @@ exports.ListarEventos = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
-// module.exports = { CrearEvento, ListarEventos };
