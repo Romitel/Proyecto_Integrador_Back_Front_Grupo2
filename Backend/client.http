@@ -1,0 +1,11 @@
+GET http://127.0.0.1:3000/api/eventos
+
+###
+
+POST http://127.0.0.1:3000/api/eventos
+Content-Type: application/json
+
+{
+    "nomre": "evento50",
+    "descripcion": "descripcion3"
+}
