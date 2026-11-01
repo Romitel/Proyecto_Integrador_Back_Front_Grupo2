@@ -1,7 +1,11 @@
 const eventosRepo = require("../repository/eventosRepository");
 
 exports.ListarEventosService = async () => {
-  const result = await eventosRepo.ListarEventosRepository();
+  try {
+    const result = await eventosRepo.ListarEventosRepository();
 
-  return result;
+    return result;
+  } catch (err) {
+    throw new Error(`Hubo un error al obtener datos`);
+  }
 };
