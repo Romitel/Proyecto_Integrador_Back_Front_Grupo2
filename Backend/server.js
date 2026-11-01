@@ -1,16 +1,16 @@
-const express = require("express");
-const morgan = require("morgan");
-require("dotenv").config();
-const eventosRouter = require("./src/routes/eventosRoutes");
+const express = require('express');
+const morgan = require('morgan');
+require('dotenv').config();
+const eventosRouter = require('./src/routes/eventosRoutes');
 
 const app = express();
 app.use(express.json());
-app.use(morgan("dev"));
+app.use(morgan('dev'));
 
 app.get(`/`, (req, res) => {
   res.status(200).send(`Hola Express`);
 });
 
-app.use("/api", eventosRouter);
+app.use('/api', eventosRouter);
 
 module.exports = app;
