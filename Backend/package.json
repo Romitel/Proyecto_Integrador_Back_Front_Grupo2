@@ -1,25 +1,25 @@
 {
-  "name": "backend",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js",
-    "start": "node index.js"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "dependencies": {
-    "dotenv": "^18.0.9",
-    "express": "^5.3.0",
-    "pg": "^8.23.1"
-  },
-  "devDependencies": {
-    "colors": "^1.4.0",
-    "morgan": "^1.12.1",
-    "nodemon": "^3.1.14"
-  }
+    "author": "",
+    "dependencies": {
+        "dotenv": "^18.0.9",
+        "express": "^5.3.0",
+        "pg": "^8.23.1"
+    },
+    "description": "",
+    "devDependencies": {
+        "colors": "^1.4.0",
+        "morgan": "^1.12.1",
+        "nodemon": "^3.1.14"
+    },
+    "keywords": [],
+    "license": "ISC",
+    "main": "index.js",
+    "name": "backend",
+    "scripts": {
+        "dev": "nodemon index.js",
+        "start": "node index.js",
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "type": "commonjs",
+    "version": "1.0.0"
 }
