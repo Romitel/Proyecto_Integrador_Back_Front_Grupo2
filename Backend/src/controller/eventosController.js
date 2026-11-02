@@ -36,3 +36,14 @@ exports.CrearEventoController = async (req, res) => {
     return res.status(statusCode).json({ error: error.message });
   }
 };
+
+exports.EliminarEventoController = async (req, res) => {
+  try{
+    const { evento_id } = req.params;
+    const result = await eventosServ.EliminarEventoService(evento_id);
+    return res.status(200).json(result);
+  } catch (error) {
+    const statusCode = error.statusCode || 500;
+    return res.status(statusCode).json({ error: error.message });
+  }
+}

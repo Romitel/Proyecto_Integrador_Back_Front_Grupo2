@@ -10,6 +10,12 @@ POST http://127.0.0.1:3000/api/eventos HTTP/1.1
 Content-Type: application/json
 
 {
-    "nombre": " erer56 ",
-    "description": "   descripcion345 "
+    "nombre": " evento55 ",
+    "description": " "
 }
+
+###
+
+DELETE  http://127.0.0.1:3000/api/eventos/100 HTTP/1.1 
+
+###

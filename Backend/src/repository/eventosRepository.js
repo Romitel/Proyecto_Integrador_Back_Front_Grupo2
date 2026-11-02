@@ -23,3 +23,9 @@ exports.CrearEventoRepository = async ({ nombre, description }) => {
   const { rows } = await db.query(queryText, [nombre, description]);
   return rows[0];
 };
+
+exports.EliminarEventoRepository = async evento_id => {
+  const queryText = 'DELETE FROM eventos WHERE id = $1 RETURNING *';
+  const { rows } = await db.query(queryText, [evento_id]);  
+  return rows[0] || null;
+};
