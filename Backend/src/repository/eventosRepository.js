@@ -29,3 +29,21 @@ exports.EliminarEventoRepository = async evento_id => {
   const { rows } = await db.query(queryText, [evento_id]);  
   return rows[0] || null;
 };
+
+exports.editarEventoRepository = async ( {id, nombre, description} ) => {
+  try {
+    const resp = await db.query(
+      'UPDATE eventos SET nombre = $1, description = $2, creadoen = now() WHERE id = $3 RETURNING *;',
+      [nombre, description, parseInt(id)]
+    );
+    if(resp.rowCount===0){
+      console.error(`el id ${id} no existe`)
+      return null
+    }
+    return resp.rows[0];
+  } catch (error) {
+    console.error("Error en editarEventoRepository:", error);
+    throw error; 
+  }
+};
+

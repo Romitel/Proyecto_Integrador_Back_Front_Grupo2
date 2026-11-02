@@ -58,3 +58,14 @@ exports.EliminarEventoService = async evento_id => {
     throw new Error(`Hubo un error al eliminar el evento: ${error.message}`);
   }
 };
+exports.EditarEventoService=async({id,nombre,description})=>{
+  try {
+    const response=await eventosRepo.editarEventoRepository(
+      {id,nombre,description}
+    )
+    return response
+  } catch (error) {
+    console.error("error al editar en eventoService",error)
+    throw new Error("El evento no se actualizó!")    
+  }
+}
