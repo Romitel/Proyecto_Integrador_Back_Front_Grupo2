@@ -1,27 +1,19 @@
-import { Component, computed, signal } from '@angular/core';
-import { Header } from './components/header/header';
-import { MatSlideToggle } from '@angular/material/slide-toggle';
+import { Component, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { EventosServicios } from './services/eventos-servicios';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, MatSlideToggle, Header],
+  imports: [RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
 export class App {
-  // protected readonly title = signal('Guillermo');
-  protected readonly contador = signal(0);
-  protected readonly esCero = computed(() => this.contador() === 0);
+  private readonly httpServicios = inject(EventosServicios);
 
-  sumarUno() {
-    this.contador.update((value) => (value += 1));
-  }
-  restarUno() {
-    this.contador.update((value) => {
-      if (value < 1) return value;
-
-      return (value -= 1);
-    });
+  obtenerEventos() {
+    this.httpServicios
+      .getEventos()
+      .subscribe({ next: (data) => console.log(data), error: (error) => console.log(error) });
   }
 }
