@@ -1,0 +1,38 @@
+<p>eventos works!</p>
+
+<div class="container">
+    <h2>
+        eventos diponibles
+    </h2>
+    <a routerLink="/eventos">Crear Evento</a>
+
+    @if (eventos().length===0) {
+        <div>
+            no hay productos disponibles
+        </div>
+    }@else{
+
+        <table>
+            <thead>
+                <tr>
+                    <th scope="">Id</th>
+                    <th scope="">Evento</th>
+                    <th scope="">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (evento of eventos(); track evento.id) {
+                    <tr>
+                        <td>{{evento.id}}</td>
+                        <td>{{evento.description}}</td>
+                        <td>
+                            <a href="">Ver Detalle</a>
+                            <a href="">Actualizar</a>
+                            <a href="">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+</div>
