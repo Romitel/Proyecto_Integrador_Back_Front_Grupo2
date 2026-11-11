@@ -25,7 +25,10 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/material-theme.scss", "src/styles.css"]
+            "styles": ["src/material-theme.scss",
+            "src/styles.css","node_modules/bootstrap/dist/css/bootstrap.min.css"
+          ],
+            "scripts":["node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"]
           },
           "configurations": {
             "production": {

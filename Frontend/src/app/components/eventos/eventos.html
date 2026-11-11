@@ -4,7 +4,7 @@
     <h2>
         eventos diponibles
     </h2>
-    <a routerLink="/eventos">Crear Evento</a>
+    <a class="btn btn-success" routerLink="/eventos">Crear Evento</a>
 
     @if (eventos().length===0) {
         <div>
@@ -12,7 +12,7 @@
         </div>
     }@else{
 
-        <table>
+        <table class="table">
             <thead>
                 <tr>
                     <th scope="">Id</th>
@@ -26,9 +26,9 @@
                         <td>{{evento.id}}</td>
                         <td>{{evento.description}}</td>
                         <td>
-                            <a href="">Ver Detalle</a>
-                            <a href="">Actualizar</a>
-                            <a href="">Eliminar</a>
+                            <a class="btn btn-primary" href="">Ver Detalle</a>
+                            <a class="btn btn-secondary" href="">Actualizar</a>
+                            <a class="btn btn-danger" href="">Eliminar</a>
                         </td>
                     </tr>
                 }
