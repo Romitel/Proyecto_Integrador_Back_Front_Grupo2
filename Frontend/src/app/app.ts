@@ -1,6 +1,6 @@
-import { Component, inject } from '@angular/core';
+import { Component } from '@angular/core';
+import { Footer } from './components/footer/footer';
 import { RouterOutlet } from '@angular/router';
-import { EventosServicios } from './services/eventos-servicios';
 
 @Component({
   selector: 'app-root',
@@ -8,12 +8,4 @@ import { EventosServicios } from './services/eventos-servicios';
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
-export class App {
-  private readonly httpServicios = inject(EventosServicios);
-
-  obtenerEventos() {
-    this.httpServicios
-      .getEventos()
-      .subscribe({ next: (data) => console.log(data), error: (error) => console.log(error) });
-  }
-}
+export class App {}

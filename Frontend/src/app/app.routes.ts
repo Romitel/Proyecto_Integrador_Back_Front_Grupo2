@@ -1,16 +1,50 @@
-import { HOME } from '@angular/cdk/keycodes';
 import { Routes } from '@angular/router';
-import {Home} from './components/home/home';
+import { SharedLayout } from './layout/shared-layout/shared-layout';
 
 export const routes: Routes = [
     {
     path: '',
-    component:Home
-    },
-    {
-        path: 'eventos',
-        loadComponent:()=>
-            import('./components/eventos/eventos')
-            .then(m=>m.Eventos)
-    }
-];
+    loadComponent: () => import('./components/home/home').then(m => m.Home),
+},
+{
+    path: '',
+    component: SharedLayout,
+    children:[
+{
+    path: 'eventos',
+    loadComponent:()=>
+        import('./components/eventos/eventos')
+        .then(m=>m.Eventos)
+},
+{
+    path: 'evento-lista',
+    loadComponent:()=>
+        import('./components/evento-lista/evento-lista')
+        .then(m=>m.EventoLista)
+},
+{
+    path: 'evento-nuevo',
+    loadComponent:()=>
+        import('./components/evento-nuevo/evento-nuevo')
+        .then(m=>m.EventoNuevo)
+},
+// {
+//     path: 'eventos/:id',
+//     loadComponent:()=>
+//         import('./components/evento-detalle/evento-detalle')
+//         .then(m=>m.EventoDetalle)
+// },
+{
+    path: 'ranking',
+    loadComponent:()=>
+        import('./components/ranking/ranking')
+        .then(m=>m.Ranking)
+},
+{
+    path: 'historial',
+    loadComponent:()=>
+        import('./components/historial/historial')
+        .then(m=>m.Historial)
+}]
+}
+]

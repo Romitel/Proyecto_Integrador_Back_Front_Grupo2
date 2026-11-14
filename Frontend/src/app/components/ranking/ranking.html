@@ -1,0 +1,45 @@
+<div class="container py-4">
+    <h1 class="display-4 fw-bolder text-uppercase">Ranking</h1>
+    <p class="text-body-secondary" style="max-width: 42rem;">
+        Puntaje = 3 × asistencias − 2 × inasistencias − 1 × cancelaciones.
+        Desempate: más asistencias, menos cancelaciones y mayor antigüedad.
+        El ranking es una herramienta de apoyo: no cambia categorías automáticamente.
+    </p>
+
+    <div class="mt-4 overflow-hidden rounded-3 border bg-body shadow-sm">
+        <div class="table-responsive">
+            <table class="table table-hover align-middle mb-0">
+                <thead class="table-light">
+                    <tr>
+                        <th scope="col" style="width: 3rem;">#</th>
+                        <th scope="col">Integrante</th>
+                        <th scope="col">Categoría</th>
+                        <th scope="col" class="text-end">Asist.</th>
+                        <th scope="col" class="text-end">Ausencias</th>
+                        <th scope="col" class="text-end">Cancel.</th>
+                        <th scope="col" class="text-end">Puntaje</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (row of rows; track row.p.id; let i = $index) {
+                    <tr [class.table-primary]="row.p.id === currentUserId">
+                        <td class="fs-5 fw-bold text-primary">{{ i + 1 }}</td>
+                        <td class="fw-medium">{{ row.p.full_name }}</td>
+                        <td>
+                            @if (row.p.category === 'activo') {
+                            <span class="badge bg-secondary">Activo</span>
+                            } @else {
+                            <span class="badge border border-secondary text-secondary">Invitado</span>
+                            }
+                        </td>
+                        <td class="text-end">{{ row.s.attended }}</td>
+                        <td class="text-end">{{ row.s.absences }}</td>
+                        <td class="text-end">{{ row.s.cancellations }}</td>
+                        <td class="text-end fs-5 fw-bold">{{ rankingScore(row.s) }}</td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
