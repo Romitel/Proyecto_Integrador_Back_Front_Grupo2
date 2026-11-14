@@ -26,7 +26,7 @@ Content-Type: application/json
 
 ###
 
-DELETE  http://127.0.0.1:3000/api/eventos/100 HTTP/1.1 
+DELETE  http://127.0.0.1:3000/api/eventos/18 HTTP/1.1 
 
 ###
 PUT http://127.0.0.1:3000/api/eventos/78 HTTP/1.1

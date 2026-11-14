@@ -1,7 +1,176 @@
-/* You can add global styles to this file, and also import other style files */
+:root {
+  --font-sans: "Figtree", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Barlow Condensed", "Figtree", sans-serif;
 
+  --radius: 0.75rem;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+
+  --background: #f6f8f2;
+  --foreground: #061b10;
+  --card: #fdfefb;
+  --card-foreground: #061b10;
+  --primary: #005e31;
+  --primary-foreground: #f7faf2;
+  --secondary: #e1eede;
+  --secondary-foreground: #09311b;
+  --muted: #e8ede5;
+  --muted-foreground: #516356;
+  --accent: #c1f354;
+  --accent-foreground: #06210d;
+  --destructive: #d72828;
+  --destructive-foreground: #f7faf2;
+  --success: #137d41;
+  --warning: #f2a618;
+  --warning-foreground: #733d00;
+  --pitch: #012111;
+  --pitch-foreground: #f0f4e5;
+  --border: #d5ded1;
+  --input: #d5ded1;
+  --ring: #005e31;
+
+  --shadow-lime: 0 8px 24px -8px rgba(193, 243, 84, 0.65);
+  --shadow-card: 0 1px 2px rgba(6, 27, 16, 0.06), 0 8px 24px -12px rgba(6, 27, 16, 0.18);
+
+  /* Sobrescritura de Variables Nativas de Bootstrap 5 */
+  --bs-font-sans-serif: var(--font-sans);
+  --bs-body-font-family: var(--font-sans);
+  --bs-body-bg: var(--background);
+  --bs-body-color: var(--foreground);
+  --bs-border-color: var(--border);
+  --bs-border-radius: var(--radius);
+
+  --bs-primary: #005e31;
+  --bs-primary-rgb: 0, 94, 49;
+  --bs-secondary: #e1eede;
+  --bs-secondary-rgb: 225, 238, 222;
+  --bs-success: #137d41;
+  --bs-success-rgb: 19, 125, 65;
+  --bs-warning: #f2a618;
+  --bs-warning-rgb: 242, 166, 24;
+  --bs-danger: #d72828;
+  --bs-danger-rgb: 215, 40, 40;
+}
+
+/* 2. Reset y Tipografía Base */
 * {
   box-sizing: border-box;
-  padding: 0;
+  border-color: var(--border);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
   margin: 0;
+}
+
+h1, h2, h3, .font-display {
+  font-family: var(--font-display);
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: 3rem;
+  line-height: 1;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+/* 3. Clases Utilitarias Personalizadas (Compatibles con Bootstrap) */
+.bg-pitch {
+  background-color: var(--pitch) !important;
+}
+
+.text-pitch-foreground {
+  color: var(--pitch-foreground) !important;
+}
+
+.bg-card {
+  background-color: var(--card) !important;
+  color: var(--card-foreground);
+}
+
+.bg-accent {
+  background-color: var(--accent) !important;
+  color: var(--accent-foreground) !important;
+}
+
+.logo {
+    font-family: var(--font-display);
+    color: var(--color-primary-foreground);
+    text-decoration: none;
+    font-size: 1.5rem;
+    line-height: 2rem; 
+    font-weight: 800; 
+}
+
+.text-primary { 
+    color: var(--primary) !important; 
+}
+
+.text-secondary {
+    color: var(--secondary) !important; 
+}
+
+.text-accent {
+  color: var(--accent) !important;
+}
+
+.bg-muted {
+  background-color: var(--muted) !important;
+}
+
+.text-muted-foreground {
+  color: var(--muted-foreground) !important;
+}
+
+.shadow-card {
+  box-shadow: var(--shadow-card) !important;
+}
+
+.max-w-6xl {
+  max-width: 72rem;
+}
+
+.z-30 {
+  z-index: 30;
+}
+
+/* Ajuste de botones primarios de Bootstrap a tu verde #005e31 */
+.btn-primary {
+  --bs-btn-bg: var(--primary);
+  --bs-btn-border-color: var(--primary);
+  --bs-btn-color: var(--primary-foreground);
+  --bs-btn-hover-bg: #004926;
+  --bs-btn-hover-border-color: #004926;
+  --bs-btn-active-bg: #003b1f;
+  --bs-btn-active-border-color: #003b1f;
+}
+
+/* Focus ring con tu color --ring */
+.form-control:focus,
+.form-select:focus,
+.form-check-input:focus {
+  border-color: var(--ring);
+  box-shadow: 0 0 0 0.25rem rgba(0, 94, 49, 0.2);
+}
+
+/* 4. Navegación del AppShell */
+.nav-link-pitch {
+  color: color-mix(in srgb, var(--pitch-foreground) 75%, transparent);
+  text-decoration: none;
+  transition: color 0.15s ease, background-color 0.15s ease;
+}
+
+.nav-link-pitch:hover {
+  color: var(--pitch-foreground);
+}
+
+.nav-link-pitch.active {
+  background-color: color-mix(in srgb, var(--pitch-foreground) 10%, transparent);
+  color: var(--pitch-foreground);
 }

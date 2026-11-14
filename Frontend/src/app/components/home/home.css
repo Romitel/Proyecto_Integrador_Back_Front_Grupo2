@@ -1,0 +1,38 @@
+.hero-section {
+  min-height: 88vh;
+}
+
+.hero-img {
+  object-fit: cover;
+  opacity: 0.8;
+}
+
+/* Gradiente oscuro sobre la foto de la cancha (equivalente a bg-gradient-pitch) */
+.bg-gradient-pitch {
+  background: linear-gradient(
+    180deg,
+    rgba(1, 33, 17, 0.35) 0%,
+    rgba(1, 33, 17, 0.95) 100%
+  );
+}
+
+.hero-title {
+  font-size: clamp(3.5rem, 8vw, 6rem); /* Equivalente a text-6xl md:text-8xl */
+  line-height: 0.9;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.text-pitch-80 {
+  color: color-mix(in srgb, var(--pitch-foreground) 80%, transparent);
+}
+
+.tracking-widest {
+  letter-spacing: 0.1em;
+}
+
+/* Líneas sutiles de cancha en la sección de features (opcional) */
+.chalk-lines {
+  background-image: radial-gradient(var(--border) 1px, transparent 1px);
+  background-size: 24px 24px;
+}
