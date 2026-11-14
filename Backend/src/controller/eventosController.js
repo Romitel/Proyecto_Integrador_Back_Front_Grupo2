@@ -25,10 +25,15 @@ exports.GetEventoByIdController = async (req, res) => {
 
 exports.CrearEventoController = async (req, res) => {
   try {
-    const { nombre, description } = req.body;
+    const {
+      disciplina, nombre, fecha, horario, lugar_direccion, 
+      capacidad_maxima, minimo_para_jugar, modalidad, 
+      edad_desde, edad_hasta, habilitar_invitados, notas
+    } = req.body;
     const result = await eventosServ.CrearEventoService({
-      nombre,
-      description,
+      disciplina, nombre, fecha, horario, lugar_direccion, 
+      capacidad_maxima, minimo_para_jugar, modalidad, 
+      edad_desde, edad_hasta, habilitar_invitados, notas
     });
     return res.status(201).json(result);
   } catch (error) {

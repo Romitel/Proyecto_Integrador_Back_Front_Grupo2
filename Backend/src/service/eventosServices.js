@@ -25,13 +25,16 @@ exports.GetEventoByIdService = async evento_id => {
   }
 };
 
-exports.CrearEventoService = async ({ nombre, description }) => {
+exports.CrearEventoService = async ({ disciplina, nombre, fecha, horario, lugar_direccion, 
+      capacidad_maxima, minimo_para_jugar, modalidad, 
+      edad_desde, edad_hasta, habilitar_invitados, notas }) => {
   if (!nombre || nombre.trim() === '')
     throw new Error('El nombre del evento es obligatorio');
   try {
     const evento = await eventosRepo.CrearEventoRepository({
-      nombre: nombre.trim(),
-      description: description ? description.trim() : null,
+      disciplina, nombre, fecha, horario, lugar_direccion, 
+      capacidad_maxima, minimo_para_jugar, modalidad, 
+      edad_desde, edad_hasta, habilitar_invitados, notas
     });
     return evento;
   } catch (error) {

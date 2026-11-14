@@ -2,7 +2,7 @@ GET http://127.0.0.1:3000/api/eventos HTTP/1.1
 
 ###
 
-GET http://127.0.0.1:3000/api/eventos/78 HTTP/1.1
+GET http://127.0.0.1:3000/api/eventos/2 HTTP/1.1
 
 ###
 
@@ -10,8 +10,18 @@ POST http://127.0.0.1:3000/api/eventos HTTP/1.1
 Content-Type: application/json
 
 {
-    "nombre": " evento55 ",
-    "description": " "
+    "disciplina": "Futbol",
+    "nombre": "Picadito del sábado",
+    "fecha": "2026-11-20",
+    "horario": "18:00:00",
+    "lugar_direccion": "Cancha 5, Club Atlético",
+    "capacidad_maxima": 22,
+    "minimo_para_jugar": 10,
+    "modalidad": "Abierta",
+    "edad_desde": 16,
+    "edad_hasta": 40,
+    "habilitar_invitados": true,
+    "notas": "Llevar rodillera"
 }
 
 ###
