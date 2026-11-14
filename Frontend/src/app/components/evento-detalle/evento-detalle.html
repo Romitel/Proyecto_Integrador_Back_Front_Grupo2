@@ -1,0 +1,119 @@
+<div class="container py-4">
+    @if (isLoading()) {
+    <p class="text-body-secondary">Cargando…</p>
+    } @else if (!ev() || !alloc()) {
+    <p>
+        Encuentro no encontrado.
+        <a routerLink="/eventos" class="text-primary text-decoration-underline">Volver</a>
+    </p>
+    } @else {
+    <!-- Link Volver -->
+    <a routerLink="/eventos"
+        class="d-inline-flex align-items-center gap-1 small text-body-secondary text-decoration-none">
+        <i class="bi bi-arrow-left"></i> Eventos
+    </a>
+
+    <!-- Card Principal (Hero del encuentro) -->
+    <div class="mt-3 overflow-hidden rounded-4 bg-dark text-white shadow">
+        <div class="row g-4 p-4 p-md-5 align-items-start">
+
+            <!-- Columna Izquierda: Info -->
+            <div class="col-12 col-md">
+                <div class="d-flex flex-wrap gap-2">
+                    <span class="badge bg-success text-dark fw-bold">{{ ev().sport }}</span>
+                    <span class="badge bg-secondary">
+                        {{ ev().mode === 'abierta' ? 'Convocatoria abierta' : 'Convocatoria cerrada' }}
+                    </span>
+                    @if (ev().status !== 'programado') {
+                    <span class="badge bg-danger">
+                        {{ ev().status === 'cancelado' ? 'Cancelado' : 'Finalizado' }}
+                    </span>
+                    }
+                </div>
+
+                <h1 class="mt-3 display-4 fw-bolder text-uppercase text-capitalize">
+                    {{ ev().title || fmtDate(ev().starts_at) }}
+                </h1>
+
+                <div class="mt-3 d-flex flex-wrap column-gap-4 row-gap-2 text-white-50">
+                    <span class="d-flex align-items-center gap-2 text-capitalize">
+                        <i class="bi bi-calendar-event"></i> {{ fmtDate(ev().starts_at) }}
+                    </span>
+                    <span class="d-flex align-items-center gap-2">
+                        <i class="bi bi-clock"></i> {{ fmtTime(ev().starts_at) }} h
+                    </span>
+                    <span class="d-flex align-items-center gap-2">
+                        <i class="bi bi-geo-alt"></i> {{ ev().location }}
+                    </span>
+                    @if (ev().age_min || ev().age_max) {
+                    <span class="d-flex align-items-center gap-2">
+                        <i class="bi bi-people"></i> Edad preferente {{ ev().age_min ?? '–' }} a {{ ev().age_max ?? '–'
+                        }}
+                    </span>
+                    }
+                </div>
+
+                @if (ev().notes) {
+                <p class="mt-3 mb-0 text-white-50">{{ ev().notes }}</p>
+                }
+            </div>
+
+            <!-- Columna Derecha: Acciones de inscripción -->
+            <div class="col-12 col-md-auto d-flex flex-column align-items-start align-items-md-end gap-3">
+                @if (ev().status === 'programado' && !started()) {
+                @if (myActive()) {
+                <div class="d-flex flex-column align-items-start align-items-md-end gap-2">
+                    <span class="badge fs-6" [class.bg-success]="myConfirmed()" [class.bg-warning]="!myConfirmed()"
+                        [class.text-dark]="!myConfirmed()">
+                        {{ myConfirmed() ? 'Estás confirmado' : 'Lista de espera · puesto ' + (myWaitPos() + 1) }}
+                    </span>
+
+                    <button type="button" class="btn btn-outline-light" [disabled]="busy()"
+                        (click)="showCancelModal.set(true)">
+                        Cancelar mi lugar
+                    </button>
+                </div>
+                } @else {
+                <button type="button" class="btn btn-success fw-bold px-4" [disabled]="busy() || !allowed()"
+                    (click)="join()">
+                    {{ free() > 0 ? 'Anotarme' : 'Anotarme en lista de espera' }}
+                </button>
+                }
+                }
+
+                <button type="button" class="btn btn-sm btn-outline-secondary text-white" (click)="shareWhatsApp()">
+                    <i class="bi bi-share me-1"></i> Compartir por WhatsApp
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Modal de confirmación para cancelar inscripción (Bootstrap Modal controlado por Signal) -->
+    @if (showCancelModal()) {
+    <div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0,0,0,0.5);">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">¿Cancelar tu inscripción?</h5>
+                    <button type="button" class="btn-close" (click)="showCancelModal.set(false)"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-body-secondary">
+                        Tu lugar quedará libre para el siguiente en la lista. Podés proponer un reemplazo (queda sujeto
+                        a validación del organizador).
+                    </p>
+                    <input type="text" class="form-control" placeholder="Reemplazo propuesto (opcional)"
+                        [ngModel]="replacement()" (ngModelChange)="replacement.set($event)" />
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="showCancelModal.set(false)">Volver</button>
+                    <button type="button" class="btn btn-danger" [disabled]="busy()" (click)="confirmCancel()">Confirmar
+                        cancelación</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    }
+    }
+</div>

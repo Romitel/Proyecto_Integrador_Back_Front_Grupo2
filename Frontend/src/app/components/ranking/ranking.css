@@ -1,0 +1,10 @@
+.table-container {
+    overflow: hidden; 
+    border-radius: 0.75rem; 
+    border-width: 1px;
+}
+
+.ranking-desc {
+    max-width: 42rem;
+    color: var(--color-muted-foreground);
+}

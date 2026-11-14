@@ -1,0 +1,47 @@
+<!-- <div>
+    <h1>Integrantes</h1>
+    <p class="text-muted-foreground">Cambiá manualmente la categoría de cada participante. Los nuevos usuarios
+        ingresan como invitados.</p>
+    <div class="mt-6 overflow-hidden rounded-xl border bg-card shadow-card">
+        <table>
+            <thead>
+                <tr>
+                    <th>Nombre</th>
+                    <th>Alta</th>
+                    <th class="text-right">Asist.</th>
+                    <th class="text-right">Ausencias</th>
+                    <th class="text-right">Cancel.</th>
+                    <th class="text-right">Puntaje</th>
+                    <th class="w-40">Categoría</th>
+                </tr>
+            </thead>
+            <tbody>
+                {data.profiles.map((p) => {
+                const s = data.stats[p.id] ?? EMPTY_STATS;
+                return (
+                <tr key={p.id}>
+                    <td class="font-medium">{p.full_name}</td>
+                    <td class="text-muted-foreground">{{new Date(p.created_at).toLocaleDateString("es-AR")}}
+                    </td>
+                    <td class="text-right">{{s.attended}}</td>
+                    <td class="text-right">{{s.absences}}</td>
+                    <td class="text-right">{{s.cancellations}}</td>
+                    <td class="text-right font-bold">{{rankingScore(s)}}</td>
+                    <td>
+                        <Select value={p.category} onValueChange={(v)=> setCategory(p.id, v as "activo" | "invitado")}>
+                            <SelectTrigger>
+                                <SelectValue />
+                            </SelectTrigger>
+                            <SelectContent>
+                                <SelectItem value="activo">Activo</SelectItem>
+                                <SelectItem value="invitado">Invitado</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </td>
+                </tr>
+                );
+                })}
+            </tbody>
+        </table>
+    </div>
+</div> -->
