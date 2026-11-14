@@ -19,10 +19,20 @@ Content-Type: application/json
 DELETE  http://127.0.0.1:3000/api/eventos/100 HTTP/1.1 
 
 ###
-PUT http://127.0.0.1:3000/api/eventos/78 HTTP/1.1
+PUT http://127.0.0.1:3000/api/eventos/2 HTTP/1.1
 Content-Type: application/json
 
 {
-    "nombre":"evento78actualizado",
-    "description": "descripcionActualizada78"
+	"disciplina":"Futbol", 
+	"nombre":"embocale al hoyo", 
+	"fecha":"2026/11/22",
+	"horario":"12:00:00", 
+	"lugar_direccion":"golf club pilar", 
+	"capacidad_maxima":"4" , 
+	"minimo_para_jugar":"2", 
+	"modalidad":"Abierta",
+	"edad_desde":"16", 
+	"edad_hasta":"78" ,
+	"habilitar_invitados":"false" ,
+	"notas":"traer plata para pagar"
 }

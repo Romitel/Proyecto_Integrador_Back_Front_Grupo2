@@ -51,12 +51,35 @@ exports.EliminarEventoController = async (req, res) => {
 exports.EditarEventoController=async (req,res)=>{
   try {
     const id = parseInt(req.params.id);
-    const {nombre,description}=req.body;
+    const {disciplina,
+    nombre,
+    fecha,
+    horario,
+    lugar_direccion,
+    capacidad_maxima,
+    minimo_para_jugar,
+    modalidad,
+    edad_desde,
+    edad_hasta,
+    habilitar_invitados,
+    notas}=req.body;
     if(isNaN(id)||id<=0){
       return res.status(400).json({error:"El id ingresado no es válido"})
     }
     const evento=await eventosServ.EditarEventoService({
-    id, nombre,description
+    id,
+    disciplina,
+    nombre,
+    fecha,
+    horario,
+    lugar_direccion,
+    capacidad_maxima,
+    minimo_para_jugar,
+    modalidad,
+    edad_desde,
+    edad_hasta,
+    habilitar_invitados,
+    notas
   })
     return res.status(200).json({mensaje: `Evento ${evento.id}-${evento.nombre} actualizado correctamente`})
   } catch (error) {

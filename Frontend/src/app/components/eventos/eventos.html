@@ -1,0 +1,70 @@
+<p>eventos works!</p>
+<div class="container mt-4">
+  <h4 class="mb-3">Próximos Eventos</h4>
+  
+  <!-- Grilla responsiva: 1 col en móvil, 2 en tablet, 3 en escritorio -->
+  <div class="row g-3">
+@for (evento of eventos(); track evento.id) {
+    <div class="card shadow-sm mb-3" style="max-width: 24rem;">
+      <div class="card-header d-flex justify-content-between align-items-center">
+        <span class="badge bg-primary">Fútbol 5</span>
+        <span class="text-muted small">Faltan 2 días</span>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Jueves 21:00 hs</h5>
+        <p class="text-muted small">{{evento.description}}</p>
+        <p class="text-muted small">{{evento.nombre}}</p>
+        <p class="card-text mb-1">
+          <a href="#" class="text-decoration-none">Complejo El Predio (Cancha 2)</a>
+        </p>
+        <p class="card-text text-muted small">
+          Inscriptos: <strong>8 / 10</strong> (2 en lista de espera)
+        </p>
+        <div class="progress mb-3" style="height: 8px;">
+          <div class="progress-bar bg-success" style="width: 80%;"></div>
+        </div>
+        <button type="button" class="btn btn-success w-100 fw-bold">
+          ¡Estoy!
+        </button>
+      </div>
+    </div>
+}
+  </div>
+</div>
+<!-- <div class="container">
+    <h2>
+        eventos diponibles
+    </h2>
+    <a class="btn btn-success" routerLink="/eventos">Crear Evento</a>
+
+    @if (eventos().length===0) {
+        <div>
+            no hay productos disponibles
+        </div>
+    }@else{
+
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="">Id</th>
+                    <th scope="">Evento</th>
+                    <th scope="">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @for (evento of eventos(); track evento.id) {
+                    <tr>
+                        <td>{{evento.id}}</td>
+                        <td>{{evento.description}}</td>
+                        <td>
+                            <a class="btn btn-primary" href="">Ver Detalle</a>
+                            <a class="btn btn-secondary" href="">Actualizar</a>
+                            <a class="btn btn-danger" href="">Eliminar</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+
+</div> -->
