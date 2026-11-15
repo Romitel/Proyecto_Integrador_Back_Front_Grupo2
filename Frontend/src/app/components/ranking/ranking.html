@@ -6,7 +6,7 @@
         El ranking es una herramienta de apoyo: no cambia categorías automáticamente.
     </p>
 
-    <div class="mt-4 overflow-hidden rounded-3 border bg-body shadow-sm">
+    <div class="mt-4 overflow-hidden rounded-4 border bg-body shadow-sm">
         <div class="table-responsive">
             <table class="table table-hover align-middle mb-0">
                 <thead class="table-light">
@@ -27,9 +27,9 @@
                         <td class="fw-medium">{{ row.p.full_name }}</td>
                         <td>
                             @if (row.p.category === 'activo') {
-                            <span class="badge bg-secondary">Activo</span>
+                            <span class="badge rounded-pill text-bg-secondary text-muted-foreground">Activo</span>
                             } @else {
-                            <span class="badge border border-secondary text-secondary">Invitado</span>
+                            <span class="badge rounded-pill border border-secondary">Invitado</span>
                             }
                         </td>
                         <td class="text-end">{{ row.s.attended }}</td>

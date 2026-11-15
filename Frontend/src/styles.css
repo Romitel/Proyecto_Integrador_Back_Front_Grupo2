@@ -85,8 +85,20 @@ h1 {
   background-color: var(--pitch) !important;
 }
 
+.text-primary {
+    color: var(--primary) !important;
+}
+
+.text-bg-secondary {
+   background-color: var(--secondary) !important;
+}
+
 .text-pitch-foreground {
   color: var(--pitch-foreground) !important;
+}
+
+.text-muted-foreground {
+    color: var(--muted-foreground) !important;
 }
 
 .bg-card {

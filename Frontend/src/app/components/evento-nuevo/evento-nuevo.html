@@ -6,9 +6,9 @@
         <div class="row g-3 mb-3">
             <!-- Disciplina -->
             <div class="col-sm-6">
-                <label for="sport" class="form-label fw-medium">Disciplina</label>
-                <select id="sport" formControlName="sport" class="form-select">
-                    @for (s of sports; track s) {
+                <label for="disciplina" class="form-label fw-medium">Disciplina</label>
+                <select id="disciplina" formControlName="disciplina" class="form-select" required>
+                    @for (s of disciplina; track s) {
                     <option [value]="s">{{ s }}</option>
                     }
                 </select>
@@ -16,50 +16,53 @@
 
             <!-- Nombre (opcional) -->
             <div class="col-sm-6">
-                <label for="title" class="form-label fw-medium">Nombre (opcional)</label>
-                <input id="title" type="text" formControlName="title" placeholder="Picado de los jueves"
-                    class="form-control" />
+                <label for="nombre" class="form-label fw-medium">Nombre</label>
+                <input id="nombre" type="text" formControlName="nombre" placeholder="Picadito de los jueves"
+                    class="form-control" required />
             </div>
 
             <!-- Fecha -->
             <div class="col-sm-6">
-                <label for="date" class="form-label fw-medium">Fecha</label>
-                <input id="date" type="date" formControlName="date" class="form-control" />
+                <label for="fecha" class="form-label fw-medium">Fecha</label>
+                <input id="fecha" type="date" formControlName="fecha" class="form-control" required />
             </div>
 
             <!-- Horario -->
             <div class="col-sm-6">
-                <label for="time" class="form-label fw-medium">Horario</label>
-                <input id="time" type="time" formControlName="time" class="form-control" />
+                <label for="horario" class="form-label fw-medium">Horario</label>
+                <input id="horario" type="time" formControlName="horario" class="form-control" required />
             </div>
         </div>
 
         <!-- Lugar o predio -->
         <div class="mb-3">
-            <label for="location" class="form-label fw-medium">Lugar o predio (dirección)</label>
-            <input id="location" type="text" formControlName="location"
-                placeholder="Complejo El Potrero, Av. Siempreviva 742, CABA" class="form-control" />
+            <label for="lugar_direccion" class="form-label fw-medium">Lugar o predio (dirección)</label>
+            <input id="lugar_direccion" type="text" formControlName="lugar_direccion"
+                placeholder="Complejo El Potrero, Av. Siempreviva 742, CABA" class="form-control" required />
         </div>
 
         <div class="row g-3 mb-3">
             <!-- Capacidad máxima -->
             <div class="col-sm-6">
-                <label for="max" class="form-label fw-medium">Capacidad máxima</label>
-                <input id="max" type="number" min="1" formControlName="max_capacity" class="form-control" />
+                <label for="capacidad_maxima" class="form-label fw-medium">Capacidad máxima</label>
+                <input id="capacidad_maxima" type="number" min="1" formControlName="capacidad_maxima"
+                    class="form-control" required />
             </div>
 
             <!-- Mínimo para jugar -->
             <div class="col-sm-6">
-                <label for="min" class="form-label fw-medium">Mínimo para jugar</label>
-                <input id="min" type="number" min="1" formControlName="min_participants" class="form-control" />
+                <label for="minimo_para_jugar" class="form-label fw-medium">Mínimo para jugar</label>
+                <input id="minimo_para_jugar" type="number" min="1" formControlName="minimo_para_jugar"
+                    class="form-control" required />
             </div>
 
             <!-- Modalidad -->
             <div class="col-sm-6">
-                <label for="mode" class="form-label fw-medium">Modalidad</label>
-                <select id="mode" formControlName="mode" class="form-select">
-                    <option value="abierta">Abierta (admite invitados)</option>
-                    <option value="cerrada">Cerrada (solo activos)</option>
+                <label for="modalidad" class="form-label fw-medium">Modalidad</label>
+                <select id="modalidad" formControlName="modalidad" class="form-select" required>
+                    @for (m of modalidad; track m) {
+                    <option [value]="m">{{ m }}</option>
+                    }
                 </select>
             </div>
 
@@ -67,14 +70,16 @@
             <div class="col-sm-6">
                 <label class="form-label fw-medium">Rango de edad preferente</label>
                 <div class="d-flex gap-2">
-                    <input type="number" placeholder="Desde" formControlName="age_min" class="form-control" />
-                    <input type="number" placeholder="Hasta" formControlName="age_max" class="form-control" />
+                    <input type="number" placeholder="Desde" formControlName="edad_desde" class="form-control"
+                        required />
+                    <input type="number" placeholder="Hasta" formControlName="edad_hasta" class="form-control"
+                        required />
                 </div>
             </div>
         </div>
 
         <!-- Condicional: Solo si mode === 'abierta' -->
-        @if (form.get('mode')?.value === 'abierta') {
+        @if (form.get('modalidad')?.value === 'abierta') {
         <div class="d-flex align-items-center justify-content-between rounded-3 bg-body-secondary p-3 mb-3">
             <div>
                 <div class="fw-semibold">Habilitar invitados desde ya</div>
@@ -83,16 +88,17 @@
 
             <!-- Switch nativo de Bootstrap 5 -->
             <div class="form-check form-switch m-0">
-                <input class="form-check-input" type="checkbox" role="switch" id="guestsSwitch"
-                    formControlName="guests_enabled_early" style="width: 2.5em; height: 1.25em; cursor: pointer;" />
+                <input class="form-check-input" type="checkbox" role="switch" id="habilitar_invitados"
+                    formControlName="habilitar_invitados" style="width: 2.5em; height: 1.25em; cursor: pointer;"
+                    required />
             </div>
         </div>
         }
 
         <!-- Notas -->
         <div class="mb-4">
-            <label for="notes" class="form-label fw-medium">Notas</label>
-            <textarea id="notes" rows="3" formControlName="notes" placeholder="Llevar camiseta clara y oscura"
+            <label for="notas" class="form-label fw-medium">Notas</label>
+            <textarea id="notas" rows="3" formControlName="notas" placeholder="Llevar camiseta clara y oscura"
                 class="form-control"></textarea>
         </div>
 
