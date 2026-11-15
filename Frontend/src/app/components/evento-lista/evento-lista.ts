@@ -1,33 +1,36 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
+import { Meta, Title } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
-import { Title, Meta } from '@angular/platform-browser';
 import { BadgeComponent, ButtonComponent } from '../../components/ui';
+import { Evento, Modalidad } from '../../models/eventos'; // Ajusta la ruta a tu interfaz/modelo
 import { EventosServicios } from '../../services/eventos-servicios'; // Ajusta la ruta a tu servicio
-import { Evento } from '../../models/eventos'; // Ajusta la ruta a tu interfaz/modelo
-import { fmtDate, fmtTime, fmtDateTime } from '../../../lib/format';
-import { allocate, belowMinimum } from '../../../lib/allocation';
 
 @Component({
   selector: 'app-events-list',
   standalone: true,
   imports: [RouterLink, BadgeComponent, ButtonComponent],
   templateUrl: './evento-lista.html',
-  styles: [`
-    .card-hover {
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-    .card-hover:hover {
-      transform: translateY(-2px);
-    }
-    .tracking-widest {
-      letter-spacing: 0.1em;
-    }
-  `]
+  styles: [
+    `
+      .card-hover {
+        transition:
+          transform 0.15s ease,
+          box-shadow 0.15s ease;
+      }
+      .card-hover:hover {
+        transform: translateY(-2px);
+      }
+      .tracking-widest {
+        letter-spacing: 0.1em;
+      }
+    `,
+  ],
 })
 export class EventoLista implements OnInit {
   private readonly _eventoService = inject(EventosServicios);
   private readonly titleService = inject(Title);
   private readonly metaService = inject(Meta);
+  private readonly Modalidad = Modalidad;
 
   // Signals de estado
   readonly eventos = signal<Evento[]>([]);
@@ -46,9 +49,12 @@ export class EventoLista implements OnInit {
   // Próximos encuentros (hasta 3 horas después de haber empezado)
   readonly upcoming = computed(() => {
     const now = Date.now();
+    console.log(this.eventos());
+    // console.log(now);
     return this.eventos().filter((e: any) => {
-      const noCancelado = !e.estado || e.estado === 'programado';
-      return noCancelado && this.getTimestamp(e) > now - 3 * 3600_000;
+      // const noCancelado = !e.estado || e.estado === 'programado';
+      // return noCancelado && this.getTimestamp(e) > now - 3 * 3600_000;
+      return e;
     });
   });
 
@@ -64,7 +70,7 @@ export class EventoLista implements OnInit {
     this.titleService.setTitle('Convocatorias — ESTOY');
     this.metaService.updateTag({
       name: 'description',
-      content: 'Próximos encuentros de tu grupo y su estado de cupos.'
+      content: 'Próximos encuentros de tu grupo y su estado de cupos.',
     });
 
     this.cargarEventos();
@@ -78,23 +84,24 @@ export class EventoLista implements OnInit {
       next: (data) => {
         this.eventos.set(data ?? []);
         this.isLoading.set(false);
+        // console.log(data);
       },
       error: (err) => {
         console.error('Error al cargar encuentros:', err);
         this.error.set(true);
         this.isLoading.set(false);
-      }
+      },
     });
   }
 
   // Formateo de fecha en español (ej: "jueves 19 nov")
   fmtFecha(fechaStr: string): string {
-    if (!fechaStr) return '';
+    if (fechaStr) return '';
     const date = new Date(`${fechaStr}T00:00:00`);
     return new Intl.DateTimeFormat('es-AR', {
       weekday: 'long',
       day: 'numeric',
-      month: 'short'
+      month: 'short',
     }).format(date);
   }
 
@@ -107,7 +114,7 @@ export class EventoLista implements OnInit {
   // Cálculo de cupos y estado del usuario por tarjeta
   getCardInfo(e: any) {
     const regs = (e.inscripciones ?? []).filter(
-      (r: any) => r.estado === 'inscripto' || r.status === 'inscripto'
+      (r: any) => r.estado === 'inscripto' || r.status === 'inscripto',
     );
     const confirmed = regs.slice(0, e.capacidad_maxima);
     const waitlist = regs.slice(e.capacidad_maxima);
@@ -119,9 +126,8 @@ export class EventoLista implements OnInit {
         : 'espera'
       : null;
 
-    const pct = e.capacidad_maxima > 0
-      ? Math.min(100, (confirmed.length / e.capacidad_maxima) * 100)
-      : 0;
+    const pct =
+      e.capacidad_maxima > 0 ? Math.min(100, (confirmed.length / e.capacidad_maxima) * 100) : 0;
 
     const belowMin = confirmed.length < e.minimo_para_jugar;
 

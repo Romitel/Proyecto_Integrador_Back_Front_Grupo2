@@ -1,115 +1,135 @@
 <div class="container mx-auto px-4 py-8">
-    <!-- Cabecera -->
-    <div class="d-flex flex-wrap align-items-end justify-content-between gap-3">
-        <div>
-            <h1 class="font-display display-4 fw-bolder text-uppercase mb-1">Convocatorias</h1>
-            <p class="text-muted-foreground mb-0">Confirmá tu lugar en los próximos encuentros.</p>
-        </div>
-
-        @if (isAdmin()) {
-        <a appButton variant="lime" routerLink="/evento-nuevo">
-            <i class="bi bi-plus-lg"></i> Nuevo encuentro
-        </a>
-        }
+  <!-- Cabecera -->
+  <div class="d-flex flex-wrap align-items-end justify-content-between gap-3">
+    <div>
+      <h1 class="font-display display-4 fw-bolder text-uppercase mb-1">Convocatorias</h1>
+      <p class="text-muted-foreground mb-0">Confirmá tu lugar en los próximos encuentros.</p>
     </div>
 
-    <!-- Estados de carga y error -->
-    @if (isLoading()) {
+    @if (isAdmin()) {
+      <a appButton variant="lime" routerLink="/evento-nuevo">
+        <i class="bi bi-plus-lg"></i> Nuevo encuentro
+      </a>
+    }
+  </div>
+
+  <!-- Estados de carga y error -->
+  @if (isLoading()) {
     <p class="mt-5 text-muted-foreground">Cargando…</p>
-    }
+  }
 
-    @if (error()) {
+  @if (error()) {
     <p class="mt-5 text-danger">No se pudieron cargar las convocatorias.</p>
-    }
+  }
 
-    <!-- Estado vacío -->
-    @if (!isLoading() && !error() && upcoming().length === 0) {
-    <div class="mt-5 rounded-4 border p-5 text-center text-muted-foreground" style="border-style: dashed !important;">
-        No hay encuentros programados{{ isAdmin() ? '. Creá el primero.' : ' por ahora.' }}
+  <!-- Estado vacío -->
+  @if (!isLoading() && !error() && upcoming().length === 0) {
+    <div
+      class="mt-5 rounded-4 border p-5 text-center text-muted-foreground"
+      style="border-style: dashed !important"
+    >
+      No hay encuentros programados{{ isAdmin() ? '. Creá el primero.' : ' por ahora.' }}
     </div>
+  }
+
+  <!-- Grilla de Próximos Encuentros -->
+  <div class="row g-4 mt-3">
+    @for (e of upcoming(); track e.id) {
+      @let info = getCardInfo(e);
+
+      <div class="col-12 col-md-6">
+        <a
+          [routerLink]="['/convocatorias', e.id]"
+          class="d-block h-100 rounded-4 border bg-card p-4 shadow-card text-decoration-none text-reset card-hover"
+        >
+          <div class="d-flex align-items-start justify-content-between gap-3">
+            <div>
+              <div class="small fw-semibold text-uppercase tracking-widest text-primary">
+                {{ e.disciplina }}
+              </div>
+              <h2 class="mt-1 h2 fw-bold text-capitalize mb-1">
+                {{ e.nombre || fmtFecha(e.horario) }}
+              </h2>
+              <div class="small text-muted-foreground text-capitalize">
+                {{ fmtFecha(e.horario) }} · {{ fmtHorario(e.horario) }} h
+              </div>
+            </div>
+
+            <!-- Badges de estado usando <app-badge> -->
+            <div class="d-flex flex-column align-items-end gap-1">
+              <app-badge [variant]="e.modalidad === 'Abierto' ? 'secondary' : 'outline'">
+                {{ e.modalidad }}
+              </app-badge>
+
+              @if (info.myState === 'confirmado') {
+                <app-badge variant="success">Estás</app-badge>
+              }
+              @if (info.myState === 'espera') {
+                <app-badge variant="warning">En espera</app-badge>
+              }
+            </div>
+          </div>
+
+          <!-- Ubicación -->
+          <div class="mt-3 d-flex align-items-center gap-2 small text-muted-foreground">
+            <i class="bi bi-geo-alt"></i> {{ e.lugar_direccion }}
+          </div>
+
+          <!-- Barra de Progreso -->
+          <div class="mt-4">
+            <div class="d-flex justify-content-between small mb-1">
+              <span class="fw-semibold"
+                >{{ info.confirmed.length }}/{{ e.capacidad_maxima }} confirmados</span
+              >
+              @if (info.waitlist.length > 0) {
+                <span class="text-muted-foreground">{{ info.waitlist.length }} en espera</span>
+              }
+            </div>
+            <div class="progress bg-muted" style="height: 0.5rem">
+              <div
+                class="progress-bar bg-primary"
+                role="progressbar"
+                [style.width.%]="info.pct"
+                [attr.aria-valuenow]="info.pct"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+          </div>
+
+          <!-- Alerta de mínimo para Admin -->
+          @if (isAdmin()) {
+            <div class="mt-3 d-flex align-items-center gap-2 small text-warning-emphasis">
+              <i class="bi bi-exclamation-triangle"></i>
+              Faltan {{ e.minimo_para_jugar - info.confirmed.length }} para el mínimo
+            </div>
+          }
+        </a>
+      </div>
     }
+  </div>
 
-    <!-- Grilla de Próximos Encuentros -->
-    <div class="row g-4 mt-3">
-        @for (e of upcoming(); track e.id) {
-        @let info = getCardInfo(e);
-
-        <div class="col-12 col-md-6">
-            <a [routerLink]="['/convocatorias', e.id]"
-                class="d-block h-100 rounded-4 border bg-card p-4 shadow-card text-decoration-none text-reset card-hover">
-                <div class="d-flex align-items-start justify-content-between gap-3">
-                    <div>
-                        <div class="small fw-semibold text-uppercase tracking-widest text-primary">
-                            {{ e.disciplina }}
-                        </div>
-                        <h2 class="mt-1 h2 fw-bold text-capitalize mb-1">
-                            {{ e.nombre|| fmtFecha(e.horario) }}
-                        </h2>
-                        <div class="small text-muted-foreground text-capitalize">
-                            {{ fmtFecha(e.horario) }} · {{ fmtHorario(e.horario) }} h
-                        </div>
-                    </div>
-
-                    <!-- Badges de estado usando <app-badge> -->
-                    <div class="d-flex flex-column align-items-end gap-1">
-                        <app-badge [variant]="e.modalidad === 'abierta' ? 'secondary' : 'outline'">
-                            {{ e.modalidad === 'abierta' ? 'Abierta' : 'Cerrada' }}
-                        </app-badge>
-
-                        @if (info.myState === 'confirmado') {
-                        <app-badge variant="success">Estás</app-badge>
-                        }
-                        @if (info.myState === 'espera') {
-                        <app-badge variant="warning">En espera</app-badge>
-                        }
-                    </div>
-                </div>
-
-                <!-- Ubicación -->
-                <div class="mt-3 d-flex align-items-center gap-2 small text-muted-foreground">
-                    <i class="bi bi-geo-alt"></i> {{ e.lugar_direccion }}
-                </div>
-
-                <!-- Barra de Progreso -->
-                <div class="mt-4">
-                    <div class="d-flex justify-content-between small mb-1">
-                        <span class="fw-semibold">{{ info.confirmed.length }}/{{ e.capacidad_maxima }}
-                            confirmados</span>
-                        @if (info.waitlist.length > 0) {
-                        <span class="text-muted-foreground">{{ info.waitlist.length }} en espera</span>
-                        }
-                    </div>
-                    <div class="progress bg-muted" style="height: 0.5rem;">
-                        <div class="progress-bar bg-primary" role="progressbar" [style.width.%]="info.pct"
-                            [attr.aria-valuenow]="info.pct" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
-                </div>
-
-                <!-- Alerta de mínimo para Admin -->
-                @if (isAdmin()) {
-                <div class="mt-3 d-flex align-items-center gap-2 small text-warning-emphasis">
-                    <i class="bi bi-exclamation-triangle"></i>
-                    Faltan {{ e.minimo_para_jugar - info.confirmed.length }} para el mínimo
-                </div>
-                }
-            </a>
-        </div>
-        }
-    </div>
-
-    <!-- Sección Anteriores -->
-    @if (past().length > 0) {
+  <!-- Sección Anteriores -->
+  @if (past().length > 0) {
     <h2 class="mt-5 font-display h4 fw-bold text-uppercase text-muted-foreground">Anteriores</h2>
     <div class="list-group mt-3 rounded-4 border bg-card overflow-hidden">
-        @for (e of past(); track e.id) {
-        <a [routerLink]="['/eventos', e.id]"
-            class="list-group-item list-group-item-action bg-card d-flex align-items-center justify-content-between px-4 py-3">
-            <span class="text-capitalize">{{ e.disciplina }} · {{ fmtFecha(e.fecha) }}</span>
-            <app-badge [variant]="e.estado === 'cancelado' ? 'destructive' : 'muted'">
-                {{ e.estado === 'cancelado' ? 'Cancelado' : e.estado === 'finalizado' ? 'Finalizado' : 'Sin cerrar' }}
-            </app-badge>
+      @for (e of past(); track e.id) {
+        <a
+          [routerLink]="['/eventos', e.id]"
+          class="list-group-item list-group-item-action bg-card d-flex align-items-center justify-content-between px-4 py-3"
+        >
+          <span class="text-capitalize">{{ e.disciplina }} · {{ fmtFecha(e.fecha) }}</span>
+          <app-badge [variant]="e.estado === 'cancelado' ? 'destructive' : 'muted'">
+            {{
+              e.estado === 'cancelado'
+                ? 'Cancelado'
+                : e.estado === 'finalizado'
+                  ? 'Finalizado'
+                  : 'Sin cerrar'
+            }}
+          </app-badge>
         </a>
-        }
+      }
     </div>
-    }
+  }
 </div>

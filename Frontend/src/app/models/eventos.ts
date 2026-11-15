@@ -4,20 +4,32 @@
 //     description: string
 // }
 
+export enum Modalidad {
+  ABIERTO = 'Abierto',
+  CERRADO = 'Cerrado',
+}
+
+export enum Disciplina {
+  Futbol,
+  Padel,
+  Basquet,
+  Rugby,
+}
+
 export interface Evento {
   id: number;
-  disciplina: string;
+  disciplina: Disciplina;
   nombre?: string | null;
-  fecha: string;   // Ej: '2026-11-19'
+  fecha: string; // Ej: '2026-11-19'
   horario: string; // Ej: '20:30:00'
   lugar_direccion: string;
   capacidad_maxima: number;
   minimo_para_jugar: number;
-  modalidad: string; // Ej: 'abierta' | 'cerrada'
+  modalidad: Modalidad;
   edad_desde?: number | null;
   edad_hasta?: number | null;
   habilitar_invitados?: boolean;
   notas?: string | null;
-  estado?: string; // Por si agregas 'programado' | 'cancelado' | 'finalizado' más adelante
+  estado?: string; // Por si agregas 'programado' | 'cancelado' | 'finalizado'
   inscripciones?: any[]; // Relación con inscriptos si existe
 }
