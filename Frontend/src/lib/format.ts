@@ -6,9 +6,12 @@ export const fmtDate = (iso: string) =>
   new Intl.DateTimeFormat('es-AR', {
     weekday: 'long',
     day: 'numeric',
-    month: 'short',
+    month: 'long',
     timeZone: tz,
   }).format(new Date(iso));
+
+// export const fmtTime = (iso: string) =>
+//   new Intl.DateTimeFormat("es-AR", { hour: "2-digit", minute: "2-digit", timeZone: tz }).format(new Date(iso));
 
 export const fmtTime = (time: string): string => {
   if (!time) return '';

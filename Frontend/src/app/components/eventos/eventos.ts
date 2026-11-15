@@ -31,14 +31,11 @@ export class Eventos {
   obtenerEventos() {
     this._eventoService.getEventos().subscribe({
       next: (data) => {
-        console.log(data);
         const eventosFormateados = data.map((ev) => ({
           ...ev,
           fechaFormateada: this.fmtDate(ev.fecha),
           horario: this.fmtTime(ev.horario),
         }));
-        console.log(eventosFormateados);
-
         this.eventos.set(eventosFormateados);
       },
       error: (error) => console.log(error),

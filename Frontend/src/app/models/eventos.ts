@@ -5,8 +5,8 @@
 // }
 
 export enum Modalidad {
-  ABIERTO = 'Abierta',
-  CERRADO = 'Cerrada',
+  ABIERTA = 'Abierta',
+  CERRADA = 'Cerrada',
 }
 
 export enum Disciplina {

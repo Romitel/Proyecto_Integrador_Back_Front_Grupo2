@@ -17,7 +17,8 @@ export interface RankingRow {
   selector: 'app-ranking',
   standalone: true,
   imports: [],
-  templateUrl: './ranking.html'
+  templateUrl: './ranking.html',
+  styleUrls: ['../../../styles.css', 'ranking.css'],
 })
 export class Ranking {
   currentUserId = '123'; // Equivalente a session?.user.id
@@ -25,12 +26,12 @@ export class Ranking {
   rows: RankingRow[] = [
     {
       p: { id: '123', full_name: 'Juan Pérez', category: 'activo' },
-      s: { attended: 10, absences: 1, cancellations: 0 }
+      s: { attended: 10, absences: 1, cancellations: 0 },
     },
     {
       p: { id: '456', full_name: 'Martín Gómez', category: 'invitado' },
-      s: { attended: 6, absences: 0, cancellations: 2 }
-    }
+      s: { attended: 6, absences: 0, cancellations: 2 },
+    },
   ];
 
   rankingScore(s: RankingRow['s']): number {

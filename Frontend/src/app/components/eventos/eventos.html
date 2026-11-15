@@ -23,10 +23,11 @@
         <div class="progress mb-3" style="height: 8px;">
           <div class="progress-bar bg-success" style="width: 80%;"></div>
         </div>
-        <button type="button" class="btn btn-success w-100 fw-bold">
-          ¡Estoy!
-        </button>
-      </div>
+        } @empty {
+        <div class="col-12">
+            <div class="alert alert-info">No hay próximos eventos disponibles.</div>
+        </div>
+        }
     </div>
 }
   </div>
