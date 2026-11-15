@@ -5,8 +5,8 @@
 // }
 
 export enum Modalidad {
-  ABIERTO = 'Abierto',
-  CERRADO = 'Cerrado',
+  ABIERTO = 'Abierta',
+  CERRADO = 'Cerrada',
 }
 
 export enum Disciplina {
@@ -17,9 +17,9 @@ export enum Disciplina {
 }
 
 export interface Evento {
-  id: number;
+  id?: number;
   disciplina: Disciplina;
-  nombre?: string | null;
+  nombre: string | null;
   fecha: string; // Ej: '2026-11-19'
   fechaFormateada?: string;
   horario: string; // Ej: '20:30:00'
