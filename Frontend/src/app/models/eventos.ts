@@ -5,7 +5,7 @@
 // }
 
 export interface Evento {
-  id: number;
+  id?: number;
   disciplina: string;
   nombre?: string | null;
   fecha: string;   // Ej: '2026-11-19'
@@ -18,6 +18,6 @@ export interface Evento {
   edad_hasta?: number | null;
   habilitar_invitados?: boolean;
   notas?: string | null;
-  estado?: string; // Por si agregas 'programado' | 'cancelado' | 'finalizado' más adelante
-  inscripciones?: any[]; // Relación con inscriptos si existe
+  estado?: string; // 'programado' | 'cancelado' | 'finalizado' más adelante
+  //inscripciones?: any[]; cuando exista
 }
