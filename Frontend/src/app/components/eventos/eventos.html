@@ -24,9 +24,17 @@
             <button type="button" class="btn btn-success w-100 fw-bold mt-auto">
               ¡Estoy!
             </button>
+            <div class="d-flex gap-2 mt-2 justify-content-end">
+              <button type="button" class="btn btn-warning btn-sm" (click)="editarEvento(evento)">
+                <i class="bi bi-pencil"></i> Editar
+              </button>
+              <button type="button" class="btn btn-danger btn-sm" (click)="eliminarEvento(evento.id)">
+                <i class="bi bi-trash"></i> Borrargit 
+              </button>
           </div>
         </div>
       </div>
+    </div>
     } @empty {
       <div class="col-12">
         <div class="alert alert-info">No hay próximos eventos disponibles.</div>

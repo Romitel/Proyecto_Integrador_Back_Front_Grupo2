@@ -5,9 +5,9 @@
 // }
 
 export interface Evento {
-  id?: number;
+  id: number;
   disciplina: string;
-  nombre?: string | null;
+  nombre: string;
   fecha: string;   // Ej: '2026-11-19'
   horario: string; // Ej: '20:30:00'
   lugar_direccion: string;
