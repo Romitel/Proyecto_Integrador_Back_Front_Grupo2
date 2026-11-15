@@ -10,10 +10,10 @@ export enum Modalidad {
 }
 
 export enum Disciplina {
-  Futbol,
-  Padel,
-  Basquet,
-  Rugby,
+  FUTBOL = 'Futbol',
+  PADEL = 'Padel',
+  BASQUET = 'Basquet',
+  RUGBY = 'Rugby',
 }
 
 export interface Evento {
@@ -21,6 +21,7 @@ export interface Evento {
   disciplina: Disciplina;
   nombre?: string | null;
   fecha: string; // Ej: '2026-11-19'
+  fechaFormateada?: string;
   horario: string; // Ej: '20:30:00'
   lugar_direccion: string;
   capacidad_maxima: number;

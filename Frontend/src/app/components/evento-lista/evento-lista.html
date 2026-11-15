@@ -48,10 +48,13 @@
                 {{ e.disciplina }}
               </div>
               <h2 class="mt-1 h2 fw-bold text-capitalize mb-1">
-                {{ e.nombre || fmtFecha(e.horario) }}
+                {{ e.nombre || e.horario }}
               </h2>
               <div class="small text-muted-foreground text-capitalize">
-                {{ fmtFecha(e.horario) }} · {{ fmtHorario(e.horario) }} h
+                {{ e.fechaFormateada }} · {{ e.horario }}h
+                <app-badge [variant]="faltanDias(e) === 'Finalizado' ? 'destructive' : 'lime'">{{
+                  faltanDias(e)
+                }}</app-badge>
               </div>
             </div>
 
@@ -118,7 +121,7 @@
           [routerLink]="['/eventos', e.id]"
           class="list-group-item list-group-item-action bg-card d-flex align-items-center justify-content-between px-4 py-3"
         >
-          <span class="text-capitalize">{{ e.disciplina }} · {{ fmtFecha(e.fecha) }}</span>
+          <span class="text-capitalize">{{ e.disciplina }} · {{ e.fechaFormateada }}</span>
           <app-badge [variant]="e.estado === 'cancelado' ? 'destructive' : 'muted'">
             {{
               e.estado === 'cancelado'

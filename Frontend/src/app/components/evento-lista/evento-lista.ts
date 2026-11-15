@@ -1,6 +1,7 @@
 import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { Meta, Title } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
+import { fmtDate, fmtTime, isEventPassed } from '../../../lib/format';
 import { BadgeComponent, ButtonComponent } from '../../components/ui';
 import { Evento, Modalidad } from '../../models/eventos'; // Ajusta la ruta a tu interfaz/modelo
 import { EventosServicios } from '../../services/eventos-servicios'; // Ajusta la ruta a tu servicio
@@ -31,6 +32,8 @@ export class EventoLista implements OnInit {
   private readonly titleService = inject(Title);
   private readonly metaService = inject(Meta);
   private readonly Modalidad = Modalidad;
+  private fmtDate = fmtDate;
+  private fmtTime = fmtTime;
 
   // Signals de estado
   readonly eventos = signal<Evento[]>([]);
@@ -42,21 +45,35 @@ export class EventoLista implements OnInit {
   readonly uid = signal<string>('');
 
   // Combina fecha ('YYYY-MM-DD') y horario ('HH:MM:SS') en un timestamp comparable
-  private getTimestamp(e: Evento): number {
-    return new Date(`${e.fecha}T${e.horario}`).getTime();
-  }
+  // private getTimestamp(e: Evento): number {
+  //   return new Date(`${e.fecha}T${e.horario}`).getTime();
+  // }
 
   // Próximos encuentros (hasta 3 horas después de haber empezado)
   readonly upcoming = computed(() => {
-    const now = Date.now();
-    console.log(this.eventos());
-    // console.log(now);
-    return this.eventos().filter((e: any) => {
-      // const noCancelado = !e.estado || e.estado === 'programado';
-      // return noCancelado && this.getTimestamp(e) > now - 3 * 3600_000;
-      return e;
-    });
+    return this.eventos().filter((e: any) => !isEventPassed(e));
   });
+
+  faltanDias(ev: Evento): string {
+    // 1. Extract YYYY-MM-DD from the ISO string to avoid UTC timezone shifts
+    const [year, month, day] = ev.fecha.split('T')[0].split('-').map(Number);
+    const fechaEvento = new Date(year, month - 1, day);
+
+    // 2. Get today's date at midnight (00:00:00)
+    const hoy = new Date();
+    hoy.setHours(0, 0, 0, 0);
+
+    // 3. Calculate difference in full days
+    const msPorDia = 1000 * 60 * 60 * 24;
+    const dias = Math.round((fechaEvento.getTime() - hoy.getTime()) / msPorDia);
+
+    // 4. Return the appropriate message
+    if (dias < 0) return 'Finalizado';
+    if (dias === 0) return 'Hoy';
+    if (dias === 1) return 'Falta 1 día';
+
+    return `Faltan ${dias} días`;
+  }
 
   // Encuentros anteriores o cancelados
   readonly past = computed(() => {
@@ -74,6 +91,7 @@ export class EventoLista implements OnInit {
     });
 
     this.cargarEventos();
+    console.log(this.upcoming());
   }
 
   cargarEventos(): void {
@@ -82,7 +100,12 @@ export class EventoLista implements OnInit {
 
     this._eventoService.getEventos().subscribe({
       next: (data) => {
-        this.eventos.set(data ?? []);
+        const eventosFormateados = data.map((ev) => ({
+          ...ev,
+          fechaFormateada: this.fmtDate(ev.fecha),
+          horario: this.fmtTime(ev.horario),
+        }));
+        this.eventos.set(eventosFormateados);
         this.isLoading.set(false);
         // console.log(data);
       },
@@ -94,16 +117,16 @@ export class EventoLista implements OnInit {
     });
   }
 
-  // Formateo de fecha en español (ej: "jueves 19 nov")
-  fmtFecha(fechaStr: string): string {
-    if (fechaStr) return '';
-    const date = new Date(`${fechaStr}T00:00:00`);
-    return new Intl.DateTimeFormat('es-AR', {
-      weekday: 'long',
-      day: 'numeric',
-      month: 'short',
-    }).format(date);
-  }
+  // // Formateo de fecha en español (ej: "jueves 19 nov")
+  // fmtFecha(fechaStr: string): string {
+  //   if (fechaStr) return '';
+  //   const date = new Date(`${fechaStr}T00:00:00`);
+  //   return new Intl.DateTimeFormat('es-AR', {
+  //     weekday: 'long',
+  //     day: 'numeric',
+  //     month: 'short',
+  //   }).format(date);
+  // }
 
   // Formateo de horario (ej: "20:30:00" -> "20:30")
   fmtHorario(horarioStr: string): string {
