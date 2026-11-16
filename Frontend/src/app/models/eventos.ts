@@ -1,9 +1,3 @@
-// export interface Evento{
-//     id? : number,
-//     nombre:string,
-//     description: string
-// }
-
 export enum Modalidad {
   ABIERTA = 'Abierta',
   CERRADA = 'Cerrada',

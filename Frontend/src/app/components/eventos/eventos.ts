@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { Evento } from '../../models/eventos';
 import { EventosServicios } from '../../services/eventos-servicios';
-import { fmtDate } from '../../../lib/format';
+import { fmtDate,fmtTime } from '../../../lib/format';
 
 @Component({
   selector: 'app-eventos',
@@ -12,7 +12,7 @@ export class Eventos {
   readonly eventos = signal<Evento[]>([]);
   private readonly _eventoService = inject(EventosServicios);
   private fmtDate = fmtDate;
-  private fmtTime = fmtDate;
+  private fmtTime = fmtTime;
   // readonly sports = [
   //   'Fútbol 5',
   //   'Fútbol 7',
