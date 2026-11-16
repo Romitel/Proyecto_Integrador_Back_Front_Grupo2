@@ -2,6 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { EventosServicios } from '../../services/eventos-servicios';
 import { Evento } from '../../models/eventos';
 import { RouterLink } from '@angular/router';
+import { fmtDate, fmtTime } from '../../../lib/format';
 
 @Component({
   selector: 'app-eventos',
@@ -79,12 +80,12 @@ export class Eventos {
     }
   }
   editarEvento(evento: Evento) {
-    const nuevoNombre = prompt('Ingrese el nuevo nombre del evento:', evento.nombre);
+    const nuevoNombre = prompt('Ingrese el nuevo nombre del evento:', evento.nombre!);
     if (nuevoNombre === null || nuevoNombre.trim() === '') {
       return;
     }
     const eventoActualizado: Evento = { ...evento, nombre: nuevoNombre };
-    this._eventoService.actualizarEvento(evento.id, eventoActualizado).subscribe({
+    this._eventoService.actualizarEvento(evento.id!, eventoActualizado).subscribe({
       next: (respuesta) => {
         console.log('Evento actualizado con exito', respuesta);
         this.obtenerEventos();

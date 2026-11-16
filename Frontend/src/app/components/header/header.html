@@ -44,36 +44,4 @@
         </a>
         }
     </nav>
-
-    <!-- Perfil y Botón Salir -->
-    <div class="ms-auto d-flex align-items-center gap-3">
-        @if (profile(); as p) {
-        <div class="d-none d-sm-block text-end">
-            <div class="small fw-semibold lh-sm">{{ p.full_name }}</div>
-            <div class="d-flex justify-content-end gap-1 mt-1">
-                @if (isAdmin()) {
-                <app-badge variant="lime">Admin</app-badge>
-                }
-                <app-badge variant="muted">
-                    {{ p.category === 'activo' ? 'Activo' : 'Invitado' }}
-                </app-badge>
-            </div>
-        </div>
-        }
-
-        <button appButton variant="pitch" size="icon" type="button" (click)="signOut()" aria-label="Cerrar sesión"
-            title="Cerrar sesión" class="nav-link">
-            <svg lucideLogOut [size]="20"></svg>
-        </button>
-    </div>
-
-    <!-- Navegación Mobile (Scroll horizontal) -->
-    <nav class="d-flex d-md-none gap-1 overflow-x-auto px-3 pb-2">
-        @for (item of nav(); track item.to) {
-        <a [routerLink]="item.to" routerLinkActive="nav-pill-active"
-            class="nav-pill text-nowrap rounded-2 px-3 py-1 small text-white-50 text-decoration-none">
-            {{ item.label }}
-        </a>
-        }
-    </nav>
 </header>
