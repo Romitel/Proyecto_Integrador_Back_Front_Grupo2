@@ -1,4 +1,4 @@
-<!-- <p>eventos works!</p>
+<p>eventos works!</p>
 <div class="container mt-4">
   <h4 class="mb-3">Próximos Eventos</h4>
 
@@ -26,7 +26,7 @@
               ¡Estoy!
             </button>
             <div class="d-flex gap-2 mt-2 justify-content-end">
-              <button type="button" class="btn btn-warning btn-sm" (click)="editarEvento(evento)">
+              <button type="button" class="btn btn-warning btn-sm" >
                 <i class="bi bi-pencil"></i> Editar
               </button>
               <button type="button" class="btn btn-danger btn-sm" (click)="eliminarEvento(evento.id)">
@@ -42,42 +42,4 @@
       </div>
     }
   </div>
-</div> -->
-<!-- <div class="container">
-    <h2>
-        eventos diponibles
-    </h2>
-    <a class="btn btn-success" routerLink="/eventos">Crear Evento</a>
-
-    @if (eventos().length===0) {
-        <div>
-            no hay productos disponibles
-        </div>
-    }@else{
-
-        <table class="table">
-            <thead>
-                <tr>
-                    <th scope="">Id</th>
-                    <th scope="">Evento</th>
-                    <th scope="">Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                @for (evento of eventos(); track evento.id) {
-                    <tr>
-                        <td>{{evento.id}}</td>
-                        <td>{{evento.description}}</td>
-                        <td>
-                            <a class="btn btn-primary" href="">Ver Detalle</a>
-                            <a class="btn btn-secondary" href="">Actualizar</a>
-                            <a class="btn btn-danger" href="">Eliminar</a>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
-    }
-
-</div> -->
--->
+</div> 

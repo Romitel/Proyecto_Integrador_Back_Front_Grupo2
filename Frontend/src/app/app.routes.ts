@@ -10,6 +10,7 @@ export const routes: Routes = [
     path: '',
     component: SharedLayout,
     children: [
+      
       {
         path: 'eventos',
         loadComponent: () =>

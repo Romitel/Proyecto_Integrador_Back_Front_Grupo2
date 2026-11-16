@@ -1,11 +1,10 @@
 import { Component, inject, signal } from '@angular/core';
-import { EventosServicios } from '../../services/eventos-servicios';
 import { Evento } from '../../models/eventos';
-import { RouterLink } from '@angular/router';
+import { EventosServicios } from '../../services/eventos-servicios';
+import { fmtDate } from '../../../lib/format';
 
 @Component({
   selector: 'app-eventos',
-  imports: [RouterLink],
   templateUrl: './eventos.html',
   styleUrl: './eventos.css',
 })
@@ -13,7 +12,7 @@ export class Eventos {
   readonly eventos = signal<Evento[]>([]);
   private readonly _eventoService = inject(EventosServicios);
   private fmtDate = fmtDate;
-  private fmtTime = fmtTime;
+  private fmtTime = fmtDate;
   // readonly sports = [
   //   'Fútbol 5',
   //   'Fútbol 7',
@@ -38,6 +37,7 @@ export class Eventos {
           horario: this.fmtTime(ev.horario),
         }));
         this.eventos.set(eventosFormateados);
+         console.log(data);
       },
       error: (error) => console.log(error),
     });
@@ -78,20 +78,20 @@ export class Eventos {
       });
     }
   }
-  editarEvento(evento: Evento) {
-    const nuevoNombre = prompt('Ingrese el nuevo nombre del evento:', evento.nombre);
-    if (nuevoNombre === null || nuevoNombre.trim() === '') {
-      return;
-    }
-    const eventoActualizado: Evento = { ...evento, nombre: nuevoNombre };
-    this._eventoService.actualizarEvento(evento.id, eventoActualizado).subscribe({
-      next: (respuesta) => {
-        console.log('Evento actualizado con exito', respuesta);
-        this.obtenerEventos();
-      },
-      error: (error) => {
-        console.error('Error al actualizar el evento', error);
-      },
-    });
-  }
+  // editarEvento(evento: Evento) {
+  //   const nuevoNombre = prompt('Ingrese el nuevo nombre del evento:', evento.nombre);
+  //   if (nuevoNombre === null || nuevoNombre.trim() === '') {
+  //     return;
+  //   }
+  //   const eventoActualizado: Evento = { ...evento, nombre: nuevoNombre };
+  //   this._eventoService.actualizarEvento(evento.id, eventoActualizado).subscribe({
+  //     next: (respuesta) => {
+  //       console.log('Evento actualizado con exito', respuesta);
+  //       this.obtenerEventos();
+  //     },
+  //     error: (error) => {
+  //       console.error('Error al actualizar el evento', error);
+  //     },
+  //   });
+  // }
 }

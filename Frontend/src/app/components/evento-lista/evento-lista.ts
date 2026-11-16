@@ -156,4 +156,18 @@ export class EventoLista implements OnInit {
 
     return { confirmed, waitlist, myState, pct, belowMin };
   }
+  eliminarEvento(id: Evento['id']) {
+    if (confirm('¿Estás seguro de que quieres eliminar este evento?')) {
+      this._eventoService.eliminarEvento(id!).subscribe({
+        next: (respuesta) => {
+          console.log('Evento eliminado con éxito', respuesta);
+          this.cargarEventos();
+        },
+        error: (error) => {
+          console.log('Error al eliminar el evento', error);
+          alert('No se puede eliminar el evento. Intenta de nuevo.');
+        },
+      });
+    }
+  }
 }
