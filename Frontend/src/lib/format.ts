@@ -10,9 +10,6 @@ export const fmtDate = (iso: string) =>
     timeZone: tz,
   }).format(new Date(iso));
 
-// export const fmtTime = (iso: string) =>
-//   new Intl.DateTimeFormat("es-AR", { hour: "2-digit", minute: "2-digit", timeZone: tz }).format(new Date(iso));
-
 export const fmtTime = (time: string): string => {
   if (!time) return '';
   return time.slice(0, 5);

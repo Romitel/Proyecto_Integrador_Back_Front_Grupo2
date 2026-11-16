@@ -17,11 +17,18 @@ export enum Disciplina {
 }
 
 export interface Evento {
+<<<<<<< HEAD
   id?: number;
   disciplina: Disciplina;
   nombre: string | null;
   fecha: string; // Ej: '2026-11-19'
   fechaFormateada?: string;
+=======
+  id: number;
+  disciplina: string;
+  nombre: string;
+  fecha: string;   // Ej: '2026-11-19'
+>>>>>>> 196f9dfa0c7eaa3e482d838bb9b5e1f00128ca61
   horario: string; // Ej: '20:30:00'
   lugar_direccion: string;
   capacidad_maxima: number;
