@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
 import { Evento } from '../../models/eventos';
 import { EventosServicios } from '../../services/eventos-servicios';
-import { fmtDate,fmtTime } from '../../../lib/format';
+import { fmtDate, fmtTime } from '../../../lib/format';
 
 @Component({
   selector: 'app-eventos',
@@ -37,7 +37,7 @@ export class Eventos {
           horario: this.fmtTime(ev.horario),
         }));
         this.eventos.set(eventosFormateados);
-         console.log(data);
+        console.log(data);
       },
       error: (error) => console.log(error),
     });
@@ -64,20 +64,21 @@ export class Eventos {
     return `Faltan ${dias} días`;
   }
 
-  eliminarEvento(id: Evento['id']) {
-    if (confirm('¿Estás seguro de que quieres eliminar este evento?')) {
-      this._eventoService.eliminarEvento(id!).subscribe({
-        next: (respuesta) => {
-          console.log('Evento eliminado con éxito', respuesta);
-          this.obtenerEventos();
-        },
-        error: (error) => {
-          console.log('Error al eliminar el evento', error);
-          alert('No se puede eliminar el evento. Intenta de nuevo.');
-        },
-      });
-    }
-  }
+  //   eliminarEvento(id: Evento['id']) {
+  //   if (confirm('¿Estás seguro de que quieres eliminar este evento?')) {
+  //     this._eventoService.eliminarEvento(id!).subscribe({
+  //       next: (respuesta) => {
+  //         console.log('Evento eliminado con éxito', respuesta);
+  //         this.obtenerEventos();
+  //       },
+  //       error: (error) => {
+  //         console.log('Error al eliminar el evento', error);
+  //         alert('No se puede eliminar el evento. Intenta de nuevo.');
+  //       },
+  //     });
+  //   }
+  // }
+
   // editarEvento(evento: Evento) {
   //   const nuevoNombre = prompt('Ingrese el nuevo nombre del evento:', evento.nombre);
   //   if (nuevoNombre === null || nuevoNombre.trim() === '') {

@@ -10,7 +10,6 @@ export const routes: Routes = [
     path: '',
     component: SharedLayout,
     children: [
-      
       {
         path: 'eventos',
         loadComponent: () =>
@@ -25,6 +24,11 @@ export const routes: Routes = [
         path: 'eventos/:id',
         loadComponent: () =>
           import('./components/evento-detalle/evento-detalle').then((m) => m.EventoDetalle),
+      },
+      {
+        path: 'editar-evento/:id',
+        loadComponent: () =>
+          import('./components/evento-editar/evento-editar').then((m) => m.EventoEditar),
       },
       {
         path: 'ranking',

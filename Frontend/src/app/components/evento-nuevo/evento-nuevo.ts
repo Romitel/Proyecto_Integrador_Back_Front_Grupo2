@@ -34,8 +34,8 @@ export class EventoNuevo {
     notas: [''],
   });
 
-  crear(payload: Evento) {
-    this._eventoService.createEvento(payload).subscribe({
+  crear(data: Evento) {
+    this._eventoService.createEvento(data).subscribe({
       next: (data) => {
         this.router.navigate(['/eventos']);
       },

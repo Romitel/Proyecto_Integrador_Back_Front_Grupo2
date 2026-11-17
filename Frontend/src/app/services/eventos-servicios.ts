@@ -13,16 +13,17 @@ export class EventosServicios {
   getEventos(): Observable<Evento[]> {
     return this.http.get<Evento[]>(this.url);
   }
-  getEventoById(id: string): Observable<Evento> {
+  getEventoById(id: Evento['id']): Observable<Evento> {
     return this.http.get<Evento>(`${this.url}/${id}`);
   }
   createEvento(datos: Evento): Observable<string> {
     return this.http.post<string>(this.url, datos);
   }
-  eliminarEvento(id: number): Observable<string> {
+  eliminarEvento(id: Evento['id']): Observable<string> {
     return this.http.delete<string>(`${this.url}/${id}`);
   }
-  actualizarEvento(id: number, eventoActualizado: Evento): Observable<Evento> {
-    return this.http.put<Evento>(`${this.url}/${id}`, eventoActualizado);
+  actualizarEvento(id: Evento['id'], eventoActualizado: Evento): Observable<string> {
+    console.log(id);
+    return this.http.put<string>(`${this.url}/${id}`, eventoActualizado);
   }
 }

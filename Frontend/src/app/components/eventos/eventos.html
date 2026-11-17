@@ -19,27 +19,17 @@
             <p class="card-text text-muted small">
               Inscriptos: <strong>8 / {{ evento.capacidad_maxima }}</strong> (2 en lista de espera)
             </p>
-            <div class="progress mb-3" style="height: 8px;">
-              <div class="progress-bar bg-success" style="width: 80%;"></div>
+            <div class="progress mb-3" style="height: 8px">
+              <div class="progress-bar bg-success" style="width: 80%"></div>
             </div>
-            <button type="button" class="btn btn-success w-100 fw-bold mt-auto">
-              ¡Estoy!
-            </button>
-            <div class="d-flex gap-2 mt-2 justify-content-end">
-              <button type="button" class="btn btn-warning btn-sm" >
-                <i class="bi bi-pencil"></i> Editar
-              </button>
-              <button type="button" class="btn btn-danger btn-sm" (click)="eliminarEvento(evento.id)">
-                <i class="bi bi-trash"></i> Borrar 
-              </button>
+            <button type="button" class="btn btn-success w-100 fw-bold mt-auto">¡Estoy!</button>
           </div>
         </div>
       </div>
-    </div>
     } @empty {
       <div class="col-12">
         <div class="alert alert-info">No hay próximos eventos disponibles.</div>
       </div>
     }
   </div>
-</div> 
+</div>

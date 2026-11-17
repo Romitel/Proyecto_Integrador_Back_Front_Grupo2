@@ -1,7 +1,7 @@
 import { Component, OnInit, inject, signal, computed } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { ActivatedRoute, RouterLink } from '@angular/router';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { Title, Meta } from '@angular/platform-browser';
 
 // Ajusta estas rutas a tus servicios equivalentes en Angular
@@ -10,6 +10,7 @@ import { allocate, canRegister, guestWindowOpensAt } from '../../../lib/allocati
 import { errMsg, fmtDate, fmtDateTime, fmtTime } from '../../../lib/format';
 import { EventosServicios } from '../../services/eventos-servicios';
 import { Evento } from '../../models/eventos';
+
 @Component({
   selector: 'app-event-detail',
   standalone: true,
@@ -19,6 +20,7 @@ import { Evento } from '../../models/eventos';
 })
 export class EventoDetalle implements OnInit {
   private route = inject(ActivatedRoute);
+  private thisRoute = inject(Router);
   //   private toast = inject(ToastService);
   private _eventoService = inject(EventosServicios);
   private titleService = inject(Title);
@@ -105,7 +107,7 @@ export class EventoDetalle implements OnInit {
     }
   }
 
-  obtenerEvento(id: string) {
+  obtenerEvento(id: Evento['id']) {
     this._eventoService.getEventoById(id).subscribe({
       next: (data) => {
         console.log(data);
@@ -122,7 +124,7 @@ export class EventoDetalle implements OnInit {
     try {
       console.log(this.eventId());
 
-      this.obtenerEvento(this.eventId());
+      this.obtenerEvento(+this.eventId());
       //   const [eventRes, membersRes] = await Promise.all([
       //     this.supabase
       //       .from('events')
@@ -236,4 +238,23 @@ export class EventoDetalle implements OnInit {
   //     this.toast.success('Asistencia registrada');
   //     await this.loadData();
   //   }
+
+  editarEvento() {
+    this.thisRoute.navigate([`/editar-evento/${this.evento()?.id}`]);
+  }
+
+  eliminarEvento(id: Evento['id']) {
+    if (confirm('¿Estás seguro de que quieres eliminar este evento?')) {
+      this._eventoService.eliminarEvento(id!).subscribe({
+        next: (respuesta) => {
+          console.log('Evento eliminado con éxito', respuesta);
+          this.thisRoute.navigate(['/eventos']);
+        },
+        error: (error) => {
+          console.log('Error al eliminar el evento', error);
+          alert('No se puede eliminar el evento. Intenta de nuevo.');
+        },
+      });
+    }
+  }
 }
