@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EventosServicios } from '../../services/eventos-servicios';
 import { Evento } from '../../models/eventos';
@@ -14,6 +14,7 @@ export class EventoNuevo {
   private fb = inject(FormBuilder);
   private router = inject(Router);
   private readonly _eventoService = inject(EventosServicios);
+  formWarning = signal('');
 
   busy = false;
   disciplina = Object.values(Disciplina);
@@ -39,7 +40,11 @@ export class EventoNuevo {
       next: (data) => {
         this.router.navigate(['/eventos']);
       },
-      error: (error) => console.log(error),
+      error: (err) => {
+        const { error } = err.error;
+        // console.log('el Error_______', err.error.error);
+        this.formWarning.set(error);
+      },
     });
   }
 
