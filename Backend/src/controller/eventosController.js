@@ -113,3 +113,15 @@ exports.EditarEventoController = async (req, res) => {
     return res.status(500).json({ error: error.message });
   }
 };
+exports.EditarModalidadController = async (req, res) => {
+  const { id } = req.params;
+  const { modalidad } = req.body;
+
+  try {
+    // console.log(id);
+    const result = await eventosServ.EditarModalidadService({ modalidad, id });
+    res.status(200).send(result);
+  } catch (err) {
+    return res.status(500).send({ error: err.message });
+  }
+};

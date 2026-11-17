@@ -117,3 +117,9 @@ exports.EditarEventoRepository = async ({
     throw error;
   }
 };
+exports.EditarModalidadRepository = async ({ modalidad, id }) => {
+  console.log(modalidad, id);
+  const queryText = `UPDATE convocatorias SET modalidad = $1 WHERE id = $2 RETURNING *;`;
+  const result = await db.query(queryText, [modalidad, id]);
+  console.log(result.rows[0]);
+};

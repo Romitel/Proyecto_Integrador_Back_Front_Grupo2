@@ -46,3 +46,10 @@ Content-Type: application/json
 	"habilitar_invitados":"false" ,
 	"notas":"traer plata para pagar"
 }
+###
+PATCH http://127.0.0.1:3000/api/eventos/10
+Content-Type: application/json
+
+{
+    "modalidad":"Abierta"
+}

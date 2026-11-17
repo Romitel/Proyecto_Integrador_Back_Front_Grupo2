@@ -118,3 +118,17 @@ exports.EditarEventoService = async ({
     // throw new Error("El evento no se actualizó!");
   }
 };
+exports.EditarModalidadService = async ({ modalidad, id }) => {
+  try {
+    const eventoExist = await eventosRepo.GetEventoByIdRepository(id);
+    console.log("Evento exist", eventoExist);
+    console.log("parametros___", modalidad, id);
+
+    await eventosRepo.EditarModalidadRepository({ modalidad, id });
+
+    return `Modalidad del evento actualziada correctamente!`;
+  } catch (err) {
+    // throw new Error("No se pudo actualizar la modalidad del evento!");
+    console.log(err);
+  }
+};
