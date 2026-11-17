@@ -60,17 +60,6 @@ exports.CrearEventoController = async (req, res) => {
   }
 };
 
-exports.EliminarEventoController = async (req, res) => {
-  try {
-    const { evento_id } = req.params;
-    const result = await eventosServ.EliminarEventoService(evento_id);
-    return res.status(200).json(result);
-  } catch (error) {
-    const statusCode = error.statusCode || 500;
-    return res.status(statusCode).json({ error: error.message });
-  }
-};
-
 exports.EditarEventoController = async (req, res) => {
   try {
     const id = parseInt(req.params.id);
@@ -111,5 +100,29 @@ exports.EditarEventoController = async (req, res) => {
     });
   } catch (error) {
     return res.status(500).json({ error: error.message });
+  }
+};
+
+exports.EditarModalidadController = async (req, res) => {
+  const { id } = req.params;
+  const { modalidad } = req.body;
+
+  try {
+    // console.log(id);
+    const result = await eventosServ.EditarModalidadService({ modalidad, id });
+    res.status(200).send(result);
+  } catch (err) {
+    return res.status(500).send({ error: err.message });
+  }
+};
+
+exports.EliminarEventoController = async (req, res) => {
+  try {
+    const { evento_id } = req.params;
+    const result = await eventosServ.EliminarEventoService(evento_id);
+    return res.status(200).json(result);
+  } catch (error) {
+    const statusCode = error.statusCode || 500;
+    return res.status(statusCode).json({ error: error.message });
   }
 };
