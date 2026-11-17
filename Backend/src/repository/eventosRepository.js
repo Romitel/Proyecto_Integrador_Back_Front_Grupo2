@@ -72,7 +72,7 @@ exports.EliminarEventoRepository = async (evento_id) => {
   const { rows } = await db.query(queryText, [evento_id]);
   return rows[0] || null;
 };
-exports.editarEventoRepository = async ({
+exports.EditarEventoRepository = async ({
   id,
   disciplina,
   nombre,
@@ -90,6 +90,7 @@ exports.editarEventoRepository = async ({
   try {
     const queryText = `UPDATE convocatorias 
    SET disciplina = $1, nombre = $2, fecha = $3, horario = $4, lugar_direccion = $5, capacidad_maxima = $6, minimo_para_jugar = $7, modalidad = $8, edad_desde = $9, edad_hasta = $10, habilitar_invitados = $11, notas = $12 WHERE id = $13 RETURNING *;`;
+
     const resp = await db.query(queryText, [
       disciplina,
       nombre,

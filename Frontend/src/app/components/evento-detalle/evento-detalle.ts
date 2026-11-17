@@ -110,7 +110,6 @@ export class EventoDetalle implements OnInit {
   obtenerEvento(id: Evento['id']) {
     this._eventoService.getEventoById(id).subscribe({
       next: (data) => {
-        console.log(data);
         data.fechaFormateada = this.fmtDate(data.fecha);
         data.horario = this.fmtTime(data.horario);
         this.evento.set(data);
@@ -122,8 +121,6 @@ export class EventoDetalle implements OnInit {
   async loadData() {
     this.isLoading.set(true);
     try {
-      console.log(this.eventId());
-
       this.obtenerEvento(+this.eventId());
       //   const [eventRes, membersRes] = await Promise.all([
       //     this.supabase

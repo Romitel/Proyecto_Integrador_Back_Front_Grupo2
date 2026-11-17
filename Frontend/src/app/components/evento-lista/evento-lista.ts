@@ -91,7 +91,6 @@ export class EventoLista implements OnInit {
     });
 
     this.cargarEventos();
-    console.log(this.upcoming());
   }
 
   cargarEventos(): void {

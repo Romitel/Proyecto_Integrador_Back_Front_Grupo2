@@ -25,25 +25,6 @@ export class EventoEditar {
   ngOnInit() {
     this.obtenerEvento(+this.eventoId!);
   }
-
-  obtenerEvento(id: Evento['id']) {
-    this._eventoService.getEventoById(id).subscribe({
-      next: (data) => {
-        data.fechaFormateada = this.fmtDate(data.fecha);
-        data.horario = this.fmtTime(data.horario);
-        this.evento.set(data);
-        console.log(data);
-      },
-      error: (error) => console.log(error),
-    });
-  }
-
-  submit() {
-    const id = this.eventoId;
-    console.log(this.eventoId);
-    this.editarEvento(+id!, this.form.value);
-  }
-
   form: FormGroup = this.fb.group({
     disciplina: [Disciplina.FUTBOL, Validators.required],
     nombre: ['', Validators.required],
@@ -59,8 +40,40 @@ export class EventoEditar {
     notas: [''],
   });
 
+  obtenerEvento(id: Evento['id']) {
+    this._eventoService.getEventoById(id).subscribe({
+      next: (data) => {
+        data.fechaFormateada = this.fmtDate(data.fecha);
+        data.horario = this.fmtTime(data.horario);
+        this.evento.set(data);
+
+        this.form.patchValue({
+          disciplina: data.disciplina,
+          nombre: data.nombre,
+          fecha: data.fecha.split('T')[0],
+          horario: data.horario,
+          lugar_direccion: data.lugar_direccion,
+          capacidad_maxima: data.capacidad_maxima,
+          minimo_para_jugar: data.minimo_para_jugar,
+          modalidad: data.modalidad,
+          edad_desde: data.edad_desde,
+          edad_hasta: data.edad_hasta,
+          habilitar_invitados: data.habilitar_invitados,
+          notas: data.notas,
+        });
+      },
+      error: (error) => console.log(error),
+    });
+  }
+
+  submit() {
+    const id = this.eventoId;
+
+    this.editarEvento(this.evento()?.id, this.form.value);
+  }
+
   editarEvento(id: Evento['id'], data: Evento) {
-    this._eventoService.actualizarEvento(+id!, data).subscribe({
+    this._eventoService.actualizarEvento(id, data).subscribe({
       next: (respuesta) => {
         console.log('Evento actualizado con exito', respuesta);
       },
