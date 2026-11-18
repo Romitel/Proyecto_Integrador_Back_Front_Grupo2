@@ -14,6 +14,6 @@ app.get(`/`, (req, res) => {
   res.status(200).send(`Hola Express`);
 });
 
-app.use("/api", eventosRouter);
+app.use("/api/eventos", eventosRouter);
 
 module.exports = app;

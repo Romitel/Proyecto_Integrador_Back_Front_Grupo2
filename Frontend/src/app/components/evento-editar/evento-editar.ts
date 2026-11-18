@@ -9,11 +9,12 @@ import { fmtDate, fmtTime } from '../../../lib/format';
   selector: 'app-evento-editar',
   imports: [ReactiveFormsModule],
   templateUrl: './evento-editar.html',
-  styleUrl: './evento-editar.css',
+  styleUrls: ['../../../styles.css', './evento-editar.css'],
 })
 export class EventoEditar {
   private fb = inject(FormBuilder);
   private route = inject(ActivatedRoute);
+  private thisRoute = inject(Router);
   evento = signal<Evento | null>(null);
   private readonly _eventoService = inject(EventosServicios);
   eventoId = this.route.snapshot.paramMap.get('id');
@@ -75,7 +76,7 @@ export class EventoEditar {
   editarEvento(id: Evento['id'], data: Evento) {
     this._eventoService.actualizarEvento(id, data).subscribe({
       next: (respuesta) => {
-        console.log('Evento actualizado con exito', respuesta);
+        this.thisRoute.navigate(['/eventos']);
       },
       error: (error) => {
         console.error('Error al actualizar el evento', error);

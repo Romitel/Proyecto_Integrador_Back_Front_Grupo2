@@ -5,7 +5,7 @@ exports.ListarEventosService = async () => {
     const eventos = await eventosRepo.ListarEventosRepository();
     return eventos;
   } catch (error) {
-    throw new Error(`Hubo un error al obtener datos: ${error.message}`);
+    throw new Error(`Hubo un error al obtener datos`);
   }
 };
 
@@ -21,7 +21,7 @@ exports.GetEventoByIdService = async (evento_id) => {
     return evento;
   } catch (error) {
     if (error.statusCode) throw error;
-    throw new Error(`Hubo un error al obtener datos: ${error.message}`);
+    throw new Error(`Hubo un error al obtener datos`);
   }
 };
 
@@ -58,7 +58,7 @@ exports.CrearEventoService = async ({
     });
     return evento;
   } catch (error) {
-    throw new Error(`No se pudo crear el evento: ${error.message}`);
+    throw new Error(`No se pudo crear el evento`);
   }
 };
 
@@ -75,12 +75,13 @@ exports.EliminarEventoService = async (evento_id) => {
       error.statusCode = 404;
       throw error;
     }
-    return { mensaje: "Evento eliminado correctamente", data: evento };
+    return "Evento eliminado correctamente";
   } catch (error) {
     if (error.statusCode) throw error;
-    throw new Error(`Hubo un error al eliminar el evento: ${error.message}`);
+    throw new Error(`Hubo un error al eliminar el evento`);
   }
 };
+
 exports.EditarEventoService = async ({
   id,
   disciplina,
@@ -97,7 +98,7 @@ exports.EditarEventoService = async ({
   notas,
 }) => {
   try {
-    const response = await eventosRepo.EditarEventoRepository({
+    await eventosRepo.EditarEventoRepository({
       id,
       disciplina,
       nombre,
@@ -112,23 +113,20 @@ exports.EditarEventoService = async ({
       habilitar_invitados,
       notas,
     });
-    return response;
+    return `Evento editado con exito`;
   } catch (error) {
-    // console.error("error al editar en eventoService", error);
-    // throw new Error("El evento no se actualizó!");
+    throw new Error("El evento no se actualizó!");
   }
 };
-exports.EditarModalidadService = async ({ modalidad, id }) => {
+
+exports.EditarModalidadService = async ({ id, modalidad }) => {
   try {
     const eventoExist = await eventosRepo.GetEventoByIdRepository(id);
-    console.log("Evento exist", eventoExist);
-    console.log("parametros___", modalidad, id);
 
-    await eventosRepo.EditarModalidadRepository({ modalidad, id });
+    await eventosRepo.EditarModalidadRepository({ id, modalidad });
 
-    return `Modalidad del evento actualziada correctamente!`;
+    return `Modalidad del evento actualizada correctamente!`;
   } catch (err) {
-    // throw new Error("No se pudo actualizar la modalidad del evento!");
-    console.log(err);
+    throw new Error("No se pudo actualizar la modalidad del evento");
   }
 };

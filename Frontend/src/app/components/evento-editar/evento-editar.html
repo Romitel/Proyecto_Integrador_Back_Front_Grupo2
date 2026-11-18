@@ -1,5 +1,5 @@
 <div class="container mx-auto" style="max-width: 42rem">
-  <h1 class="display-4 fw-bolder text-uppercase">Nuevo encuentro</h1>
+  <h1 class="display-4 fw-bolder text-uppercase">Editar Encuentro</h1>
 
   <form
     [formGroup]="form"
@@ -43,14 +43,12 @@
         id="lugar_direccion"
         type="text"
         formControlName="lugar_direccion"
-        placeholder="Complejo El Potrero, Av. Siempreviva 742, CABA"
         class="form-control"
         required
       />
     </div>
 
     <div class="row g-3 mb-3">
-      <!-- Capacidad máxima -->
       <div class="col-sm-6">
         <label for="capacidad_maxima" class="form-label fw-medium">Capacidad máxima</label>
         <input
@@ -63,7 +61,6 @@
         />
       </div>
 
-      <!-- Mínimo para jugar -->
       <div class="col-sm-6">
         <label for="minimo_para_jugar" class="form-label fw-medium">Mínimo para jugar</label>
         <input
@@ -76,7 +73,6 @@
         />
       </div>
 
-      <!-- Modalidad -->
       <div class="col-sm-6">
         <label for="modalidad" class="form-label fw-medium">Modalidad</label>
         <select id="modalidad" formControlName="modalidad" class="form-select" required>
@@ -86,29 +82,15 @@
         </select>
       </div>
 
-      <!-- Rango de edad preferente -->
       <div class="col-sm-6">
         <label class="form-label fw-medium">Rango de edad preferente</label>
         <div class="d-flex gap-2">
-          <input
-            type="number"
-            placeholder="Desde"
-            formControlName="edad_desde"
-            class="form-control"
-            required
-          />
-          <input
-            type="number"
-            placeholder="Hasta"
-            formControlName="edad_hasta"
-            class="form-control"
-            required
-          />
+          <input type="number" formControlName="edad_desde" class="form-control" required />
+          <input type="number" formControlName="edad_hasta" class="form-control" required />
         </div>
       </div>
     </div>
 
-    <!-- Condicional: Solo si mode === 'abierta' -->
     @if (form.get('modalidad')?.value === 'abierta') {
       <div
         class="d-flex align-items-center justify-content-between rounded-3 bg-body-secondary p-3 mb-3"
@@ -120,7 +102,6 @@
           </div>
         </div>
 
-        <!-- Switch nativo de Bootstrap 5 -->
         <div class="form-check form-switch m-0">
           <input
             class="form-check-input"
@@ -138,18 +119,10 @@
     <!-- Notas -->
     <div class="mb-4">
       <label for="notas" class="form-label fw-medium">Notas</label>
-      <textarea
-        id="notas"
-        rows="3"
-        formControlName="notas"
-        placeholder="Llevar camiseta clara y oscura"
-        class="form-control"
-      ></textarea>
+      <textarea id="notas" rows="3" formControlName="notas" class="form-control"></textarea>
     </div>
 
     <!-- Botón Submit -->
-    <button type="submit" (click)="submit()" class="btn btn-primary btn-lg w-100">
-      Editar Encuentro!
-    </button>
+    <button type="submit" class="btn btn-primary btn-lg w-100">Editar Encuentro</button>
   </form>
 </div>

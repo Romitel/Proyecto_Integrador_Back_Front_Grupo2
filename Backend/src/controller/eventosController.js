@@ -13,8 +13,8 @@ exports.ListarEventosController = async (req, res) => {
 
 exports.GetEventoByIdController = async (req, res) => {
   try {
-    const { evento_id } = req.params;
-    const result = await eventosServ.GetEventoByIdService(evento_id);
+    const { id } = req.params;
+    const result = await eventosServ.GetEventoByIdService(id);
 
     return res.status(200).json(result);
   } catch (error) {
@@ -62,8 +62,8 @@ exports.CrearEventoController = async (req, res) => {
 
 exports.EliminarEventoController = async (req, res) => {
   try {
-    const { evento_id } = req.params;
-    const result = await eventosServ.EliminarEventoService(evento_id);
+    const { id } = req.params;
+    const result = await eventosServ.EliminarEventoService(id);
     return res.status(200).json(result);
   } catch (error) {
     const statusCode = error.statusCode || 500;
@@ -91,7 +91,7 @@ exports.EditarEventoController = async (req, res) => {
     if (isNaN(id) || id <= 0) {
       return res.status(400).json({ error: "El id ingresado no es válido" });
     }
-    const evento = await eventosServ.EditarEventoService({
+    const result = await eventosServ.EditarEventoService({
       id,
       disciplina,
       nombre,
@@ -106,20 +106,17 @@ exports.EditarEventoController = async (req, res) => {
       habilitar_invitados,
       notas,
     });
-    return res.status(200).json({
-      mensaje: `Evento ${evento.id}-${evento.nombre} actualizado correctamente`,
-    });
+    return res.status(200).json(result);
   } catch (error) {
     return res.status(500).json({ error: error.message });
   }
 };
 exports.EditarModalidadController = async (req, res) => {
-  const { id } = req.params;
-  const { modalidad } = req.body;
-
   try {
-    // console.log(id);
-    const result = await eventosServ.EditarModalidadService({ modalidad, id });
+    const { id } = req.params;
+    const { modalidad } = req.body;
+    const result = await eventosServ.EditarModalidadService({ id, modalidad });
+
     res.status(200).send(result);
   } catch (err) {
     return res.status(500).send({ error: err.message });

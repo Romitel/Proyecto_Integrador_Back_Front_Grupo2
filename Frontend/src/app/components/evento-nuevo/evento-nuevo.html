@@ -17,47 +17,42 @@
         </select>
       </div>
 
-      <!-- Nombre (opcional) -->
       <div class="col-sm-6">
         <label for="nombre" class="form-label fw-medium">Nombre</label>
         <input
           id="nombre"
           type="text"
           formControlName="nombre"
-          placeholder="Picadito de los jueves"
+          placeholder="Ej. Picadito de los jueves"
           class="form-control"
           required
         />
       </div>
 
-      <!-- Fecha -->
       <div class="col-sm-6">
         <label for="fecha" class="form-label fw-medium">Fecha</label>
         <input id="fecha" type="date" formControlName="fecha" class="form-control" required />
       </div>
 
-      <!-- Horario -->
       <div class="col-sm-6">
         <label for="horario" class="form-label fw-medium">Horario</label>
         <input id="horario" type="time" formControlName="horario" class="form-control" required />
       </div>
     </div>
 
-    <!-- Lugar o predio -->
     <div class="mb-3">
       <label for="lugar_direccion" class="form-label fw-medium">Lugar o predio (dirección)</label>
       <input
         id="lugar_direccion"
         type="text"
         formControlName="lugar_direccion"
-        placeholder="Complejo El Potrero, Av. Siempreviva 742, CABA"
+        placeholder="Ej. Complejo El Potrero, Av. Siempreviva 742, CABA"
         class="form-control"
         required
       />
     </div>
 
     <div class="row g-3 mb-3">
-      <!-- Capacidad máxima -->
       <div class="col-sm-6">
         <label for="capacidad_maxima" class="form-label fw-medium">Capacidad máxima</label>
         <input
@@ -70,7 +65,6 @@
         />
       </div>
 
-      <!-- Mínimo para jugar -->
       <div class="col-sm-6">
         <label for="minimo_para_jugar" class="form-label fw-medium">Mínimo para jugar</label>
         <input
@@ -83,7 +77,6 @@
         />
       </div>
 
-      <!-- Modalidad -->
       <div class="col-sm-6">
         <label for="modalidad" class="form-label fw-medium">Modalidad</label>
         <select id="modalidad" formControlName="modalidad" class="form-select" required>
@@ -93,7 +86,6 @@
         </select>
       </div>
 
-      <!-- Rango de edad preferente -->
       <div class="col-sm-6">
         <label class="form-label fw-medium">Rango de edad preferente</label>
         <div class="d-flex gap-2">
@@ -115,7 +107,6 @@
       </div>
     </div>
 
-    <!-- Condicional: Solo si mode === 'abierta' -->
     @if (form.get('modalidad')?.value === 'abierta') {
       <div
         class="d-flex align-items-center justify-content-between rounded-3 bg-body-secondary p-3 mb-3"
@@ -127,7 +118,6 @@
           </div>
         </div>
 
-        <!-- Switch nativo de Bootstrap 5 -->
         <div class="form-check form-switch m-0">
           <input
             class="form-check-input"
@@ -142,22 +132,18 @@
       </div>
     }
 
-    <!-- Notas -->
     <div class="mb-4">
       <label for="notas" class="form-label fw-medium">Notas</label>
       <textarea
         id="notas"
         rows="3"
         formControlName="notas"
-        placeholder="Llevar camiseta clara y oscura"
+        placeholder="Ej. Llevar camiseta clara y oscura"
         class="form-control"
       ></textarea>
     </div>
 
-    <!-- Botón Submit -->
-    <button type="submit" [disabled]="busy" class="btn btn-primary btn-lg w-100">
-      {{ busy ? 'Creando...' : 'Crear encuentro' }}
-    </button>
+    <button type="submit" class="btn btn-primary btn-lg w-100">Crear Evento</button>
     <p class="text-danger text-center mt-3">{{ formWarning() }}</p>
   </form>
 </div>

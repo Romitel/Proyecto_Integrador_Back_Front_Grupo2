@@ -16,7 +16,6 @@ export class EventoNuevo {
   private readonly _eventoService = inject(EventosServicios);
   formWarning = signal('');
 
-  busy = false;
   disciplina = Object.values(Disciplina);
   modalidad = Object.values(Modalidad);
 
@@ -42,21 +41,14 @@ export class EventoNuevo {
       },
       error: (err) => {
         const { error } = err.error;
-        // console.log('el Error_______', err.error.error);
-        this.formWarning.set(error);
       },
     });
   }
 
   submit() {
-    const payload = this.form.value;
-    console.log('Datos listos para enviar:', payload);
-    // if (this.form.invalid) {
-    //   this.form.markAllAsTouched();
-    //   return;
-    // }
-    this.crear(payload);
+    if (this.form.invalid) return this.formWarning.set('Complete el formulario');
 
-    this.busy = true;
+    const payload = this.form.value;
+    this.crear(payload);
   }
 }
