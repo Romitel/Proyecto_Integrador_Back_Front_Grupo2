@@ -38,11 +38,11 @@ export const routes: Routes = [
         path: 'historial',
         loadComponent: () => import('./components/historial/historial').then((m) => m.Historial),
       },
-      //   {
-      //     path: 'integrantes',
-      //     loadComponent: () =>
-      //       import('./components/integrantes/integrantes').then((m) => m.Integrantes),
-      //   },
+      {
+        path: 'integrantes',
+        loadComponent: () =>
+          import('./components/integrantes/integrantes').then((m) => m.Integrantes),
+      },
     ],
   },
 ];

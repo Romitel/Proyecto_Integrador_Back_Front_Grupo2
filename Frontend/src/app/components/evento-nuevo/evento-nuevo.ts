@@ -40,14 +40,13 @@ export class EventoNuevo {
         this.router.navigate(['/eventos']);
       },
       error: (err) => {
-        const { error } = err.error;
+        console.error('Hubo un error al cargar los eventos.');
       },
     });
   }
 
   submit() {
     if (this.form.invalid) return this.formWarning.set('Complete el formulario');
-
     const payload = this.form.value;
     this.crear(payload);
   }

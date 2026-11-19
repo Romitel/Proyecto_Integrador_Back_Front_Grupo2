@@ -1,4 +1,4 @@
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { EventosServicios } from '../../services/eventos-servicios';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -68,8 +68,6 @@ export class EventoEditar {
   }
 
   submit() {
-    const id = this.eventoId;
-
     this.editarEvento(this.evento()?.id, this.form.value);
   }
 
@@ -79,7 +77,7 @@ export class EventoEditar {
         this.thisRoute.navigate(['/eventos']);
       },
       error: (error) => {
-        console.error('Error al actualizar el evento', error);
+        console.error('Error al actualizar el evento');
       },
     });
   }

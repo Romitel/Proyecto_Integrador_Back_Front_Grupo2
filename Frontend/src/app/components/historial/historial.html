@@ -1,30 +1,4 @@
-<!-- <div>
+<div class="container py-4">
     <h1>Mi historial</h1>
-    {s && (
-    <div class="historial-cards">
-        {[["Asistencias", s.attended], ["Inasistencias", s.absences], ["Cancelaciones", s.cancellations], ["Puntaje",
-        rankingScore(s)]].map(([k, v]) => (
-        <div key={k} className="rounded-xl border bg-card p-4 shadow-card">
-            <div class="font-display text-4xl font-bold text-primary">v</div>
-            <div class="text-xs uppercase tracking-widest text-muted-foreground">k</div>
-        </div>
-        ))}
-    </div>
-    )}
-    <div class="mt-8 divide-y rounded-xl border bg-card">
-        <Link key={r.id} to="/convocatorias/$id"
-            class="flex flex-wrap items-center justify-between gap-2 px-5 py-3 hover:bg-muted/50">
-        <div>
-            <div class="font-semibold">Deporte</div>
-            <div class="text-sm capitalize text-muted-foreground"></div>
-        </div>
-        <div class="flex gap-1">
-            {{r.status === "cancelado" && <Badge variant="destructive">Cancelé</Badge>}}
-            {{r.status === "inscripto" && r.attended === null && <Badge variant="secondary">Inscripto</Badge>}}
-            {{r.attended === true && <Badge variant="success">Asistí</Badge>}}
-            {{r.attended === false && <Badge variant="warning">No asistí</Badge>}}
-            {{r.events.status === "cancelado" && <Badge variant="muted">Encuentro cancelado</Badge>}}
-        </div>
-        </Link>
-    </div>
-</div> -->
+    <p>Proximamente</p>
+</div>

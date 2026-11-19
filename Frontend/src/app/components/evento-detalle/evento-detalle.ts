@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
-import { fmtDate, fmtDateTime, fmtTime } from '../../../lib/format';
+import { fmtDate, fmtTime } from '../../../lib/format';
 import { Evento, Modalidad } from '../../models/eventos';
 import { EventosServicios } from '../../services/eventos-servicios';
 
@@ -11,7 +11,7 @@ import { EventosServicios } from '../../services/eventos-servicios';
   standalone: true,
   imports: [CommonModule, FormsModule, RouterLink],
   templateUrl: './evento-detalle.html',
-  styleUrls: ['./evento-detalle.css'],
+  styleUrl: './evento-detalle.css',
 })
 export class EventoDetalle implements OnInit {
   private route = inject(ActivatedRoute);
@@ -85,10 +85,8 @@ export class EventoDetalle implements OnInit {
     this._eventoService.actualizarModalidadEvento(id, modalidad).subscribe({
       next: (res) => {
         this.modalidadDinamica.set(this.evento()?.modalidad);
-        console.log(res);
       },
       error: (err) => {
-        console.log('segundo Modalidad___', modalidad);
         console.log(err);
       },
     });

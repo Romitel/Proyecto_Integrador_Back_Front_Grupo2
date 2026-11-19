@@ -27,9 +27,9 @@
                         <td class="fw-medium">{{ row.p.full_name }}</td>
                         <td>
                             @if (row.p.category === 'activo') {
-                            <span class="badge rounded-pill text-bg-secondary text-muted-foreground">Activo</span>
+                            <span class="badge rounded-pill text-bg-secondario text-muted-foreground">Activo</span>
                             } @else {
-                            <span class="badge rounded-pill border border-secondary">Invitado</span>
+                            <span class="badge rounded-pill border border-secondary text-primario">Invitado</span>
                             }
                         </td>
                         <td class="text-end">{{ row.s.attended }}</td>

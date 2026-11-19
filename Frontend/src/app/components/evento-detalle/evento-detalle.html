@@ -1,115 +1,98 @@
 <div class="container py-4">
-  @if (isLoading()) {
+    @if (isLoading()) {
     <p class="text-body-secondary">Cargando…</p>
-  } @else {
-    <a
-      routerLink="/eventos"
-      class="d-inline-flex align-items-center gap-1 small text-body-secondary text-decoration-none"
-    >
-      <i class="bi bi-arrow-left"></i> Eventos
+    } @else {
+    <a routerLink="/eventos"
+        class="d-inline-flex align-items-center gap-1 small text-body-secondary text-decoration-none">
+        <i class="bi bi-arrow-left"></i> Eventos
     </a>
 
     <div class="mt-3 overflow-hidden rounded-4 bg-dark text-white shadow">
-      <div class="row g-4 p-4 p-md-5 align-items-start">
-        @if (evento()) {
-          <!-- Columna Izquierda: Info -->
-          <div class="col-12 col-md">
-            <div class="d-flex flex-wrap justify-content-between">
-              <span class="badge bg-success text-dark fw-bold">{{ evento()!.disciplina }}</span>
-              <span class="badge bg-secondary" (click)="modalidadTrigger(evento()!.id)">
-                {{
-                  modalidadDinamica() === 'Abierta'
-                    ? 'Convocatoria abierta'
-                    : 'Convocatoria cerrada'
-                }}
-              </span>
+        <div class="row g-4 p-4 p-md-5 align-items-start">
+            @if (evento()) {
+            <div class="col-12 col-md">
+                <div class="d-flex flex-wrap justify-content-between">
+                    <span class="badge bg-success text-dark fw-bold">{{ evento()!.disciplina }}</span>
+                    <span class="badge bg-secondary" (click)="modalidadTrigger(evento()!.id)">
+                        {{
+                        modalidadDinamica() === 'Abierta'
+                        ? 'Convocatoria abierta'
+                        : 'Convocatoria cerrada'
+                        }}
+                    </span>
+                </div>
+
+                <h1 class="mt-3 display-4 fw-bolder text-uppercase text-capitalize">
+                    {{ evento()!.nombre || fmtDate(evento()!.fecha) }}
+                </h1>
+
+                <div class="mt-3 d-flex flex-wrap column-gap-4 row-gap-2 text-white-50">
+                    <span class="d-flex align-items-center gap-2 text-capitalize">
+                        <i class="bi bi-calendar-event"></i> {{ fmtDate(evento()!.fecha) }}
+                    </span>
+                    <span class="d-flex align-items-center gap-2">
+                        <i class="bi bi-clock"></i> {{ fmtTime(evento()!.horario) }} h
+                    </span>
+                    <span class="d-flex align-items-center gap-2">
+                        <i class="bi bi-geo-alt"></i> {{ evento()!.lugar_direccion }}
+                    </span>
+                    @if (evento()!.edad_desde || evento()!.edad_hasta) {
+                    <span class="d-flex align-items-center gap-2">
+                        <i class="bi bi-people"></i> Edad preferente {{ evento()!.edad_desde ?? '–' }} a
+                        {{ evento()!.edad_hasta ?? '–' }}
+                    </span>
+                    }
+                </div>
+
+                @if (evento()!.notas) {
+                <p class="mt-3 mb-0 text-white-50">{{ evento()!.notas }}</p>
+                }
             </div>
-
-            <h1 class="mt-3 display-4 fw-bolder text-uppercase text-capitalize">
-              {{ evento()!.nombre || fmtDate(evento()!.fecha) }}
-            </h1>
-
-            <div class="mt-3 d-flex flex-wrap column-gap-4 row-gap-2 text-white-50">
-              <span class="d-flex align-items-center gap-2 text-capitalize">
-                <i class="bi bi-calendar-event"></i> {{ fmtDate(evento()!.fecha) }}
-              </span>
-              <span class="d-flex align-items-center gap-2">
-                <i class="bi bi-clock"></i> {{ fmtTime(evento()!.horario) }} h
-              </span>
-              <span class="d-flex align-items-center gap-2">
-                <i class="bi bi-geo-alt"></i> {{ evento()!.lugar_direccion }}
-              </span>
-              @if (evento()!.edad_desde || evento()!.edad_hasta) {
-                <span class="d-flex align-items-center gap-2">
-                  <i class="bi bi-people"></i> Edad preferente {{ evento()!.edad_desde ?? '–' }} a
-                  {{ evento()!.edad_hasta ?? '–' }}
-                </span>
-              }
+            <div class="d-flex gap-2 mt-2 justify-content-end">
+                <button type="button" class="btn btn-warning btn-sm" (click)="editarEvento()">
+                    <i class="bi bi-pencil"></i> Editar
+                </button>
+                <button type="button" class="btn btn-danger btn-sm" (click)="eliminarEvento(evento()!.id)">
+                    <i class="bi bi-trash"></i> Borrar
+                </button>
             </div>
-
-            @if (evento()!.notas) {
-              <p class="mt-3 mb-0 text-white-50">{{ evento()!.notas }}</p>
+            <div class="col-12 col-md-auto d-flex flex-column align-items-start align-items-md-end gap-3">
+                <div class="d-flex flex-column align-items-start align-items-md-end gap-2">
+                    <button type="button" class="btn btn-outline-light" [disabled]="busy()"
+                        (click)="showCancelModal.set(true)">
+                        Cancelar mi lugar
+                    </button>
+                </div>
+            </div>
             }
-          </div>
-          <div class="d-flex gap-2 mt-2 justify-content-end">
-            <button type="button" class="btn btn-warning btn-sm" (click)="editarEvento()">
-              <i class="bi bi-pencil"></i> Editar
-            </button>
-            <button
-              type="button"
-              class="btn btn-danger btn-sm"
-              (click)="eliminarEvento(evento()!.id)"
-            >
-              <i class="bi bi-trash"></i> Borrar
-            </button>
-          </div>
-          <div
-            class="col-12 col-md-auto d-flex flex-column align-items-start align-items-md-end gap-3"
-          >
-            <div class="d-flex flex-column align-items-start align-items-md-end gap-2">
-              <button
-                type="button"
-                class="btn btn-outline-light"
-                [disabled]="busy()"
-                (click)="showCancelModal.set(true)"
-              >
-                Cancelar mi lugar
-              </button>
-            </div>
-          </div>
-        }
-      </div>
+        </div>
     </div>
 
     @if (showCancelModal()) {
-      <div
-        class="modal fade show d-block"
-        tabindex="-1"
-        style="background-color: rgba(0, 0, 0, 0.5)"
-      >
+    <div class="modal fade show d-block" tabindex="-1" style="background-color: rgba(0, 0, 0, 0.5)">
         <div class="modal-dialog modal-dialog-centered">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title fw-bold">¿Cancelar tu inscripción?</h5>
-              <button type="button" class="btn-close" (click)="showCancelModal.set(false)"></button>
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title fw-bold">¿Cancelar tu inscripción?</h5>
+                    <button type="button" class="btn-close" (click)="showCancelModal.set(false)"></button>
+                </div>
+                <div class="modal-body">
+                    <p class="text-body-secondary">
+                        Tu lugar quedará libre para el siguiente en la lista. Podés proponer un reemplazo
+                        (queda sujeto a validación del organizador).
+                    </p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" (click)="showCancelModal.set(false)">
+                        Proximamente...
+                    </button>
+                    <button type="button" class="btn btn-secondary" (click)="showCancelModal.set(false)">
+                        Volver
+                    </button>
+                </div>
             </div>
-            <div class="modal-body">
-              <p class="text-body-secondary">
-                Tu lugar quedará libre para el siguiente en la lista. Podés proponer un reemplazo
-                (queda sujeto a validación del organizador).
-              </p>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" (click)="showCancelModal.set(false)">
-                Proximamente...
-              </button>
-              <button type="button" class="btn btn-secondary" (click)="showCancelModal.set(false)">
-                Volver
-              </button>
-            </div>
-          </div>
         </div>
-      </div>
+    </div>
     }
-  }
+    }
 </div>

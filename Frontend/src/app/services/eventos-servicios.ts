@@ -1,7 +1,7 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Evento, Modalidad } from '../models/eventos';
+import { Evento } from '../models/eventos';
 
 @Injectable({
   providedIn: 'root',
@@ -27,8 +27,6 @@ export class EventosServicios {
   }
 
   actualizarModalidadEvento(id: Evento['id'], modalidad: Evento['modalidad']): Observable<string> {
-    console.log(id);
-    console.log(modalidad);
     return this.http.patch<string>(`${this.url}/${id}`, { modalidad });
   }
 

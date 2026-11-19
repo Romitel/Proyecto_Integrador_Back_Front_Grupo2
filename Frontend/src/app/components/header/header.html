@@ -1,7 +1,6 @@
 <header class="sticky-top z-30 bg-pitch text-pitch-foreground">
     <div class="mx-auto d-flex align-items-center gap-4 px-3 py-2 max-w-6xl">
         <app-logo></app-logo>
-        <!-- Navegación Desktop -->
         <nav class="d-none d-md-flex align-items-center gap-1">
             @for (item of nav(); track item.to) {
             <a [routerLink]="item.to" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: item.to === '/' }"
@@ -12,7 +11,6 @@
             }
         </nav>
 
-        <!-- Perfil y Botón Salir -->
         <div class="ms-auto d-flex align-items-center gap-3">
             @if (profile(); as p) {
             <div class="d-none d-sm-block text-end">
@@ -35,7 +33,6 @@
         </div>
     </div>
 
-    <!-- Navegación Mobile (Scroll horizontal) -->
     <nav class="d-flex d-md-none gap-1 overflow-x-auto px-3 pb-2">
         @for (item of nav(); track item.to) {
         <a [routerLink]="item.to" routerLinkActive="nav-pill-active"

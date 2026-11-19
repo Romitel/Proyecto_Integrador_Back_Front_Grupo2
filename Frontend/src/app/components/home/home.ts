@@ -1,6 +1,5 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { Title, Meta } from '@angular/platform-browser';
 import { ButtonComponent } from '../../components/ui';
 import { Footer } from '../footer/footer';
 import { Logo } from '../ui/logo/logo';
@@ -18,11 +17,7 @@ interface FeatureItem {
   templateUrl: './home.html',
   styleUrls: ['../../../styles.css', './home.css'],
 })
-export class Home implements OnInit {
-  private titleService = inject(Title);
-  private metaService = inject(Meta);
-
-  // Como aún no usas auth, ambos botones apuntan directo a /convocatorias
+export class Home {
   targetRoute = '/eventos';
 
   features: FeatureItem[] = [
@@ -57,13 +52,4 @@ export class Home implements OnInit {
       text: 'Un enlace con todos los datos del partido, listo para mandar.',
     },
   ];
-
-  ngOnInit() {
-    this.titleService.setTitle('ESTOY — Organizá tus partidos sin perseguir a nadie por WhatsApp');
-    this.metaService.updateTag({
-      name: 'description',
-      content:
-        'Convocatorias, cupos, lista de espera, ranking y asistencia para grupos de deporte amateur.',
-    });
-  }
 }
