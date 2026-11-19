@@ -2,8 +2,8 @@ import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { fmtDate, fmtTime, isEventPassed } from '../../../lib/format';
 import { BadgeComponent, ButtonComponent } from '../../components/ui';
-import { Evento } from '../../models/eventos'; // Ajusta la ruta a tu interfaz/modelo
-import { EventosServicios } from '../../services/eventos-servicios'; // Ajusta la ruta a tu servicio
+import { Evento } from '../../models/eventos';
+import { EventosServicios } from '../../services/eventos-servicios';
 
 @Component({
   selector: 'app-events-list',
